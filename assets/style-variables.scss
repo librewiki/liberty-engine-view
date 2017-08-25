@@ -1,0 +1,30 @@
+@import "~bulma/sass/utilities/_all";
+
+// Set your colors
+$primary: #4188f1;
+$primary-invert: findColorInvert($primary);
+// // Links
+$link: #337ab7;
+$link-invert: findColorInvert($link);
+
+$background: #f5f8fa;
+// $link-focus-border: $primary;
+
+$navbar-height: 2.8rem;
+$navbar-background-color: $primary;
+$navbar-item-color: $white;
+$navbar-item-hover-color: $white;
+$navbar-item-hover-background-color: #71a5f4;
+$navbar-item-active-color: $white;
+
+$colors: (
+  "white": ($white, $black),
+  "black": ($black, $white),
+  "light": ($light, $light-invert),
+  "dark": ($dark, $dark-invert),
+  "primary": ($primary, $primary-invert),
+  "info": ($info, $info-invert),
+  "success": ($success, $success-invert),
+  "warning": ($warning, $warning-invert),
+  "danger": ($danger, $danger-invert)
+);
