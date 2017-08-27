@@ -58,7 +58,7 @@ export default {
         new: false,
         fullTitle: article.fullTitle,
         isEditable: article.allowedActions.includes('article:edit'),
-        article: article,
+        article,
         model: {
           wikitext: article.wikitext
         }

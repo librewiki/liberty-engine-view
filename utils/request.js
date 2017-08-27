@@ -13,17 +13,19 @@ async function request ({
 }) {
   const headers = {}
   if (process.server && req) {
-    const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
-    if (jwtCookie) {
-      const token = jwtCookie.split('=')[1]
-      if (token) {
-        const decoded = jwtDecode(token)
-        if (decoded.exp < Date.now() / 1000) {
-          if (res) {
-            res.setHeader('Set-Cookie', ['jwt='])
+    if (req.headers.cookie) {
+      const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
+      if (jwtCookie) {
+        const token = jwtCookie.split('=')[1]
+        if (token) {
+          const decoded = jwtDecode(token)
+          if (decoded.exp < Date.now() / 1000) {
+            if (res) {
+              res.setHeader('Set-Cookie', ['jwt='])
+            }
+          } else {
+            headers.authorization = `Bearer ${token}`
           }
-        } else {
-          headers.authorization = `Bearer ${token}`
         }
       }
     }

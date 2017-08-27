@@ -46,6 +46,9 @@ export default {
         article
       }
     } catch (err) {
+      if (!err.response) {
+        return error({ statusCode: 500 })
+      }
       if (err.response.data.name === 'UnauthorizedError') {
         error({ statusCode: 403, message: '이 문서를 읽을 권한이 없습니다.' })
       } else {
