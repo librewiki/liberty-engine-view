@@ -21,7 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['babel-polyfill', 'buefy', 'axios', 'jwt-decode', 'js-cookie', 'moment'],
+    vendor: ['babel-polyfill', 'buefy', 'axios', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html'],
     /*
     ** Run ESLINT on save
     */
@@ -39,8 +39,8 @@ module.exports = {
   plugins: ['~plugins/buefy', '~plugins/moment'],
   css: [
     { src: 'vue2-animate/dist/vue2-animate.min.css', lang: 'css' },
-    { src: 'font-awesome/css/font-awesome.css', lang: 'css' }
-    // { src: '~/assets/style.scss', lang: 'scss' }
+    { src: 'font-awesome/css/font-awesome.css', lang: 'css' },
+    { src: 'diff2html/dist/diff2html.css', lang: 'css' }
   ],
   transition: {
     name: 'fade',

@@ -44,6 +44,8 @@ export default {
       }
       if (err.response.data.name === 'UnauthorizedError') {
         return error({ statusCode: 403, message: '권한이 없습니다.' })
+      } else {
+        return error({ statusCode: 500 })
       }
     }
   },

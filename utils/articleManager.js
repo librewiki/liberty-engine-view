@@ -56,10 +56,12 @@ export default {
       method: 'delete'
     })
   },
-  async getRevision ({ id }) {
+  async getRevision ({ id, req, res }) {
     const resp = await request({
       path: `revisions/${id}`,
-      method: 'get'
+      method: 'get',
+      req,
+      res
     })
     return resp.data.revision
   }
