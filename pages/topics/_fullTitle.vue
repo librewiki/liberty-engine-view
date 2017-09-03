@@ -2,7 +2,8 @@
 .page.page-topics
   template(v-if="article.discussionTopics.length")
     .topic(v-for="topic in article.discussionTopics")
-      h3.title.topic-title {{ topic.title }}
+      h3.title.topic-title
+        nuxt-link(:to="`/discussion/${topic.id}`") {{ topic.title }}
       discussion-comment-card(:comment="topic.firstComment")
   div(v-else) 진행중인 토의가 없습니다.
   .add-topic-form

@@ -20,6 +20,7 @@ import request from '~/utils/request'
 
 export default {
   async asyncData ({ params, req, res, redirect, store, error }) {
+    store.commit('meta/clear')
     let titleMatched = null
     store.commit('meta/update', {
       title: `"${params.searchText}" 검색`
@@ -39,7 +40,9 @@ export default {
       }
     }
     const resp = await request({
-      path: `articles/search?q=${encodeURIComponent(params.searchText)}`
+      path: `articles/search?q=${encodeURIComponent(params.searchText)}`,
+      req,
+      res
     })
     const results = resp.data.articles
     return { titleMatched, results }
