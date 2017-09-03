@@ -53,6 +53,11 @@ html {
   background-color: #f5f5f5;
 }
 
+.right-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .app {
   .main-container {
     margin-top: ($navbar-height + 1rem);

@@ -15,7 +15,8 @@
       rows="15"
     )
   wiki-html(v-else class="preview-box" :html="previewHtml")
-  button.button.is-primary(@click="submit") 저장
+  .right-wrapper
+    button.button.is-primary(@click="submit") 저장
 </template>
 
 <script>

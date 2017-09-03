@@ -1,18 +1,41 @@
 <template lang="pug">
 .page.page-topics
-  .topic(v-for="topic in article.discussionTopics")
-    h3.title.topic-title {{ topic.title }}
-    discussion-comment-card(:comment="topic.firstComment")
+  template(v-if="article.discussionTopics.length")
+    .topic(v-for="topic in article.discussionTopics")
+      h3.title.topic-title {{ topic.title }}
+      discussion-comment-card(:comment="topic.firstComment")
+  div(v-else) 진행중인 토의가 없습니다.
+  .add-topic-form
+    h3.title 새 주제 만들기
+    b-field(label="주제")
+      b-input(v-model="model.title")
+    b-field(label="내용")
+      b-input(
+        type="textarea"
+        placeholder="위키텍스트 입력이 가능합니다."
+        v-model="model.wikitext"
+      )
+    .right-wrapper
+      button.button.is-primary(@click="submit") 작성
 </template>
 
 <script>
 import articleManager from '~/utils/articleManager'
 import DiscussionCommentCard from '~/components/DiscussionCommentCard'
-// import request from '~/utils/request'
+import request from '~/utils/request'
 
 export default {
   components: {
     DiscussionCommentCard
+  },
+  data () {
+    return {
+      busy: false,
+      model: {
+        title: '',
+        wikitext: ''
+      }
+    }
   },
   async asyncData ({ params, req, res, error, store, route }) {
     store.commit('meta/clear')
@@ -50,6 +73,24 @@ export default {
     }
   },
   methods: {
+    async submit () {
+      if (this.busy || !this.model.title || !this.model.wikitext) {
+        return
+      }
+      this.busy = true
+      await request({
+        method: 'post',
+        path: `articles/full-title/${this.article.fullTitle}/discussion-topics`,
+        body: {
+          title: this.model.title,
+          wikitext: this.model.wikitext
+        }
+      })
+      this.model.title = ''
+      this.model.wikitext = ''
+      this.busy = false
+      history.go(0)
+    }
   },
   watch: {
     modeSwitch (val) {
@@ -68,6 +109,9 @@ export default {
   }
   .topic-title {
     margin-bottom: 0.5rem;
+  }
+  .add-topic-form {
+    margin-top: 2rem;
   }
 }
 </style>
