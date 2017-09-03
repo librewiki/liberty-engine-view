@@ -56,6 +56,7 @@ html {
 .app {
   .main-container {
     margin-top: ($navbar-height + 1rem);
+    margin-bottom: 1rem;
   }
   .liberty-navbar {
     position: fixed;

@@ -6,20 +6,20 @@
       :to="`/article/${encodedFullTitle}`"
     )
       a 읽기
-  ul(v-if="allowedActions.includes('article:edit')")
     nuxt-link(
+      v-if="allowedActions.includes('article:edit')"
       tag="li"
       :to="`/edit/${encodedFullTitle}`"
     )
       a 편집
-  ul(v-else)
     nuxt-link(
+      v-else
       tag="li"
       :to="`/edit/${encodedFullTitle}`"
     )
       a 원본 보기
-  ul(v-if="allowedActions.includes('discussion:read')")
     nuxt-link(
+      v-if="allowedActions.includes('discussion:read')"
       tag="li"
       :to="`/topics/${encodedFullTitle}`"
     )
