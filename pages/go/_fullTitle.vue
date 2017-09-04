@@ -26,7 +26,7 @@ export default {
         return error({ statusCode: 500 })
       }
       if (err.response.data.name === 'ResourceNotFoundError') {
-        redirect(`/search/${encodeURIComponent(params.fullTitle)}`)
+        return redirect(`/search/${encodeURIComponent(params.fullTitle)}`)
       }
       return error({ statusCode: 500 })
     }

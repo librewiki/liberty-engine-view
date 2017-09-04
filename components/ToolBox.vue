@@ -24,6 +24,12 @@
       :to="`/topics/${encodedFullTitle}`"
     )
       a 토의
+    nuxt-link(
+      v-if="allowedActions.includes('article:read')"
+      tag="li"
+      :to="`/history/${encodedFullTitle}`"
+    )
+      a 역사
 </template>
 
 <script>
