@@ -2,6 +2,7 @@
 #app.app
   navbar
   .main-container.container
+    site-notice
     article.box.is-paddingless
       header.main-header
         .level
@@ -21,9 +22,11 @@ import { mapState } from 'vuex'
 import Navbar from '~/components/Navbar'
 import ToolBox from '~/components/ToolBox'
 import LibertyFooter from '~/components/LibertyFooter'
+import SiteNotice from '~/components/SiteNotice'
 
 export default {
   components: {
+    SiteNotice,
     Navbar,
     ToolBox,
     LibertyFooter
