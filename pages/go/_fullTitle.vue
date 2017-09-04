@@ -27,9 +27,8 @@ export default {
       }
       if (err.response.data.name === 'ResourceNotFoundError') {
         redirect(`/search/${encodeURIComponent(params.fullTitle)}`)
-      } else {
-        error()
       }
+      return error({ statusCode: 500 })
     }
   }
 }

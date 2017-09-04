@@ -59,11 +59,13 @@ export default {
       if (!err.response) {
         return error({ statusCode: 500 })
       }
+      if (err.response.status === 404) {
+        return error({ statusCode: 404, message: '문서가 존재하지 않습니다.' })
+      }
       if (err.response.data.name === 'UnauthorizedError') {
         return error({ statusCode: 403, message: '권한이 없습니다.' })
-      } else {
-        return error({ statusCode: 500 })
       }
+      return error({ statusCode: 500 })
     }
   }
 }
