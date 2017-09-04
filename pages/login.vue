@@ -1,15 +1,10 @@
-<template lang="html">
-  <div @keyup.enter="submit">
-    <b-field>
-      <b-input placeholder="사용자 이름을 입력하세요" v-model="model.username"></b-input>
-    </b-field>
-    <b-field>
-      <b-input placeholder="비밀번호를 입력하세요" v-model="model.password" type="password"></b-input>
-    </b-field>
-    <button class="button" @click="submit">
-      로그인
-    </button>
-  </div>
+<template lang="pug">
+.page.page-login(@keyup.enter="submit")
+  b-field(label="사용자 이름")
+    b-input(placeholder="사용자 이름을 입력하세요" v-model="model.username")
+  b-field(label="비밀번호")
+    b-input(placeholder="비밀번호를 입력하세요" v-model="model.password" type="password")
+  button.button.is-primary(@click="submit") 로그인
 </template>
 
 <script>
