@@ -86,4 +86,8 @@ html {
     background-color: $background;
   }
 }
+
+a.new {
+  color: $newlink-color;
+}
 </style>

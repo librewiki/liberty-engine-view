@@ -4,6 +4,10 @@
     | 이 위키에 "
     nuxt-link(:to="`/wiki/${encodeURIComponent(titleMatched)}`") {{ titleMatched }}
     | " 문서가 존재합니다.
+  .title-matched(v-else)
+    | 이 위키에 "
+    nuxt-link.new(:to="`/wiki/${encodeURIComponent(searchText)}`") {{ searchText }}
+    | " 문서를 만들어 보세요.
   .search-results
     template(v-if="results.length")
       h3.title 검색 결과
@@ -20,13 +24,14 @@ import request from '~/utils/request'
 
 export default {
   async asyncData ({ params, req, res, redirect, store, error }) {
+    const searchText = params.searchText
     store.commit('meta/clear')
     let titleMatched = null
     store.commit('meta/update', {
-      title: `"${params.searchText}" 검색`
+      title: `"${searchText}" 검색`
     })
     try {
-      const article = await articleManager.getByFullTitle(params.searchText, {
+      const article = await articleManager.getByFullTitle(searchText, {
         fields: [
           'fullTitle'
         ],
@@ -40,12 +45,12 @@ export default {
       }
     }
     const resp = await request({
-      path: `articles/search?q=${encodeURIComponent(params.searchText)}`,
+      path: `articles/search?q=${encodeURIComponent(searchText)}`,
       req,
       res
     })
     const results = resp.data.articles
-    return { titleMatched, results }
+    return { searchText, titleMatched, results }
   }
 }
 </script>
