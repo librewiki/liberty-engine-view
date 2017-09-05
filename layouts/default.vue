@@ -2,19 +2,23 @@
 #app.app
   navbar
   .main-container.container
-    site-notice
-    article.box.is-paddingless
-      header.main-header
-        .level
-          .level-left
-            .level-item
-              h1.title {{ meta.title }}
-          .level-right
-            .level-item
-              tool-box(v-if="meta.toolBox")
-      section.main-content
-        nuxt
-      liberty-footer.footer.main-footer
+    .columns
+      .column
+        site-notice
+        article.box.is-paddingless
+          header.main-header
+            .level.title-wrapper-row
+              .level-left
+                .level-item
+                  h1.title {{ meta.title }}
+              .level-right
+                .level-item
+                  tool-box(v-if="meta.toolBox")
+          section.main-content
+            nuxt
+          liberty-footer.footer.main-footer
+      .column.is-one-quarter
+        //- live-recent
 </template>
 
 <script>
@@ -23,13 +27,15 @@ import Navbar from '~/components/Navbar'
 import ToolBox from '~/components/ToolBox'
 import LibertyFooter from '~/components/LibertyFooter'
 import SiteNotice from '~/components/SiteNotice'
+import LiveRecent from '~/components/LiveRecent'
 
 export default {
   components: {
     SiteNotice,
     Navbar,
     ToolBox,
-    LibertyFooter
+    LibertyFooter,
+    LiveRecent
   },
   computed: {
     ...mapState(['meta', 'settings'])
@@ -72,15 +78,43 @@ html {
   }
   .main-header {
     padding: $box-padding;
+    @include mobile {
+      padding: ($box-padding / 2);
+    }
     border-top-left-radius: $radius-large;
     border-top-right-radius: $radius-large;
     background-color: $background;
+    .title-wrapper-row {
+      @include mobile {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: stretch;
+        .level-left {
+          display: flex;
+          align-items: flex-start;
+        }
+        .level-right {
+          margin-top: 0;
+          padding-bottom: 0.5rem;
+          margin-bottom: 0.5rem;
+          display: flex;
+          justify-content: flex-end;
+          border-bottom: 1px solid $border;
+        }
+      }
+    }
   }
   .main-content {
     padding: $box-padding;
+    @include mobile {
+      padding: ($box-padding / 2);
+    }
   }
   .main-footer {
     padding: $box-padding;
+    @include mobile {
+      padding: ($box-padding / 2);
+    }
     border-bottom-left-radius: $radius-large;
     border-bottom-right-radius: $radius-large;
     background-color: $background;

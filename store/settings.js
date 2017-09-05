@@ -1,4 +1,4 @@
-import axios from 'axios'
+import request from '~/utils/request'
 
 export const state = () => ({
   isInitialized: false,
@@ -13,10 +13,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async initialize ({ commit }) {
-    const resp = await axios({
-      url: 'http://localhost:3001/public-settings',
-      method: 'get'
+  async initialize ({ commit }, { req, res }) {
+    const resp = await request({
+      path: 'public-settings',
+      method: 'get',
+      req,
+      res
     })
     commit('initializeSuccess', { data: resp.data.publicSettings })
   }

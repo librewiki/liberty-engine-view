@@ -1,37 +1,26 @@
 <template lang="pug">
 b-notification.site-notice(:active.sync="isVisible" type="is-primary")
-  wiki-html(:html="notice")
+  wiki-html(:html="html")
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import WikiHtml from '~/components/WikiHtml'
-import request from '~/utils/request'
 
 export default {
   components: {
     WikiHtml
   },
+  computed: {
+    ...mapState(['settings']),
+    html () {
+      return this.settings.data.siteNotice.html
+    }
+  },
   data () {
     return {
-      isVisible: false,
-      notice: ''
+      isVisible: true
     }
-  },
-  methods: {
-    async fetch () {
-      const resp = await request({ method: 'get', path: 'site-notice' })
-      this.notice = resp.data.siteNotice.html
-      if (this.notice) {
-        this.isVisible = true
-      } else {
-        this.isVisible = false
-      }
-    }
-  },
-  created () {
-    this.fetch()
-    clearInterval(this.fetch)
-    setInterval(this.fetch, 1000 * 60 * 10)
   }
 }
 </script>
