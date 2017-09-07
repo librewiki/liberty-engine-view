@@ -17,8 +17,8 @@
           section.main-content
             nuxt
           liberty-footer.footer.main-footer
-      .column.is-one-quarter
-        //- live-recent
+      .column.is-narrow
+        live-recent
 </template>
 
 <script>

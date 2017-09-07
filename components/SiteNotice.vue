@@ -1,5 +1,5 @@
 <template lang="pug">
-b-notification.site-notice(:active.sync="isVisible" type="is-primary")
+b-notification.site-notice(:active.sync="isVisible" v-if="html")
   wiki-html(:html="html")
 </template>
 
@@ -16,17 +16,15 @@ export default {
     html () {
       return this.settings.data.siteNotice.html
     }
-  },
-  data () {
-    return {
-      isVisible: true
-    }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~assets/style-variables.scss';
+
 .site-notice {
+  background-color: $grey-lighter;
   .wiki-content {
     p {
       margin-bottom: 0;
