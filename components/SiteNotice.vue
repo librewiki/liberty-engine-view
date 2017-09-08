@@ -16,6 +16,11 @@ export default {
     html () {
       return this.settings.data.siteNotice.html
     }
+  },
+  data () {
+    return {
+      isVisible: true
+    }
   }
 }
 </script>
