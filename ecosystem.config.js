@@ -4,7 +4,7 @@ module.exports = {
   apps: [
     {
       name: 'Liberty frontend',
-      script: 'npm start',
+      script: 'node_modules/.bin/nuxt start',
       env: {
         PORT: 3080,
         COMMON_VARIABLE: 'true',
