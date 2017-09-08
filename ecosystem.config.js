@@ -4,7 +4,7 @@ module.exports = {
   apps: [
     {
       name: 'Liberty frontend',
-      script: 'bin/www',
+      script: 'npm start',
       env: {
         PORT: 3080,
         COMMON_VARIABLE: 'true',
