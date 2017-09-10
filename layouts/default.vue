@@ -17,7 +17,7 @@
           section.main-content
             nuxt
           liberty-footer.footer.main-footer
-      .column.is-narrow
+      .column.is-narrow.is-hidden-mobile
         live-recent
 </template>
 

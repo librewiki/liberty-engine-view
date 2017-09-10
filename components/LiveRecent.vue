@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     async fetchLiveRecent () {
+      if (window.innerWidth < 769) return
       if (this.pending) return
       this.pending = true
       try {
