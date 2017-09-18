@@ -151,7 +151,7 @@ export default {
 @import '~assets/style-variables.scss';
 
 .page-edit {
-  .tabs {
+  .editor-switch {
     margin-bottom: 0;
   }
   .editor-input {
