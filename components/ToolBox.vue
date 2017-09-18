@@ -66,6 +66,7 @@ export default {
 @import '~assets/style-variables.scss';
 
 .tool-box {
+  background: white;
   display: flex;
   .tabs {
     margin-bottom: 0;

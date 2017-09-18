@@ -104,7 +104,7 @@ export default {
     align-items: center;
     margin-right: 1rem;
     a {
-      color: #fff;
+      color: white;
     }
   }
   .navbar-end {

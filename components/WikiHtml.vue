@@ -95,7 +95,7 @@ export default {
       }
     }
     ul, li {
-      background-color: #fff;
+      background-color: white;
     	list-style-type: none;
     	list-style-image: none;
     }
@@ -142,7 +142,7 @@ export default {
   table.wikitable,
   table.infobox {
   	width: auto;
-  	background: #fff;
+  	background: white;
   	border: none;
   	border-radius: 0.35rem;
   	border-collapse: separate;
