@@ -34,7 +34,8 @@
   b-dropdown(position="is-bottom-left")
     .button.dropdown-button(slot="trigger")
       b-icon(icon="caret-down")
-    b-dropdown-item 역링크
+    b-dropdown-item(:has-link="true")
+      nuxt-link(:to="`/backlinks/${encodedFullTitle}`") 역링크
     b-dropdown-item 문서명 변경
     b-dropdown-item 삭제
 </template>

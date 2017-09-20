@@ -2,7 +2,7 @@
 .page.page-history
   nuxt-link.button.is-primary(
     v-if="model.fairToCompare.length === 2"
-    :to="`/diff/${article.fullTitle}?old=${oldRev}&new=${newRev}`"
+    :to="`/diff/${encodeURIComponent(article.fullTitle)}?old=${oldRev}&new=${newRev}`"
   ) 비교
   button.button.is-static(v-else) 비교
   hr
@@ -26,7 +26,7 @@
   hr
   nuxt-link.button.is-primary(
     v-if="model.fairToCompare.length === 2"
-    :to="`/diff/${article.fullTitle}?old=${oldRev}&new=${newRev}`"
+    :to="`/diff/${encodeURIComponent(article.fullTitle)}?old=${oldRev}&new=${newRev}`"
   ) 비교
   button.button.is-static(v-else) 비교
 </template>

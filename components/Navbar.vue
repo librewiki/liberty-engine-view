@@ -64,12 +64,12 @@ export default {
   methods: {
     go () {
       if (this.searchInput) {
-        this.$router.push(`/go/${this.searchInput}`)
+        this.$router.push(`/go/${encodeURIComponent(this.searchInput)}`)
       }
     },
     search () {
       if (this.searchInput) {
-        this.$router.push(`/search/${this.searchInput}`)
+        this.$router.push(`/search/${encodeURIComponent(this.searchInput)}`)
       }
     },
     logout () {

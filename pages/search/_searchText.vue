@@ -2,11 +2,11 @@
 .page.page-search
   .title-matched(v-if="titleMatched")
     | 이 위키에 "
-    nuxt-link(:to="`/wiki/${encodeURIComponent(titleMatched)}`") {{ titleMatched }}
+    nuxt-link(:to="`/article/${encodeURIComponent(titleMatched)}`") {{ titleMatched }}
     | " 문서가 존재합니다.
   .title-matched(v-else)
     | 이 위키에 "
-    nuxt-link.new(:to="`/wiki/${encodeURIComponent(searchText)}`") {{ searchText }}
+    nuxt-link.new(:to="`/edit/${encodeURIComponent(searchText)}`") {{ searchText }}
     | " 문서를 만들어 보세요.
   .search-results
     template(v-if="results.length")
