@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
-const prefix = 'http://localhost:3001'
+const prefix = '/api'
 
 async function request ({
   path,
