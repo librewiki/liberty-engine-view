@@ -17,7 +17,7 @@
           section.main-content
             nuxt
           liberty-footer.footer.main-footer
-      .column.is-narrow.is-hidden-mobile
+      .column.is-narrow.is-hidden-touch
         live-recent
 </template>
 
@@ -71,6 +71,9 @@ html {
   .main-container {
     margin-top: ($navbar-height + 1rem);
     margin-bottom: 1rem;
+    @include touch {
+      margin-top: ($navbar-height * 2 + 1rem);
+    }
   }
   .liberty-navbar {
     position: fixed;
@@ -78,7 +81,7 @@ html {
   }
   .main-header {
     padding: $box-padding;
-    @include mobile {
+    @include touch {
       padding: ($box-padding / 2);
     }
     border-top-left-radius: $radius-large;
@@ -99,20 +102,20 @@ html {
           margin-bottom: 0.5rem;
           display: flex;
           justify-content: flex-end;
-          border-bottom: 1px solid $border;
+          border-bottom: 1px solid #e1e8ed;
         }
       }
     }
   }
   .main-content {
     padding: $box-padding;
-    @include mobile {
+    @include touch {
       padding: ($box-padding / 2);
     }
   }
   .main-footer {
     padding: $box-padding;
-    @include mobile {
+    @include touch {
       padding: ($box-padding / 2);
     }
     border-bottom-left-radius: $radius-large;
