@@ -66,6 +66,9 @@ module.exports = {
         // if link has anchor,  scroll to anchor by returning the selector
         if (to.hash) {
           position = { selector: to.hash.replace(/\./g, '\\.') }
+          setTimeout(() => {
+            scrollBy({ top: -50, behavior: 'smooth' })
+          }, 100)
         }
         return position
       }

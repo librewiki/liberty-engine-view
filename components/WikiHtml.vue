@@ -25,11 +25,6 @@ export default {
           if (host === window.location.host) {
             event.preventDefault()
             this.$router.push({ path, query, hash })
-            if (hash) {
-              setTimeout(() => {
-                scrollBy({ top: -42, behavior: 'smooth' })
-              }, 100)
-            }
           }
           checkingNode = undefined
         } else {
