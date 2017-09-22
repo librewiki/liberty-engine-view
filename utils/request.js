@@ -1,7 +1,8 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
-const prefix = '/api'
+
+const prefix = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001'
 
 async function request ({
   path,
