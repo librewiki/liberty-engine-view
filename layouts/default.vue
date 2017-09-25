@@ -2,8 +2,8 @@
 #app.app
   navbar
   .main-container.container
-    .columns
-      .column
+    .columns.main-columns
+      .column.main-column
         site-notice
         article.box.is-paddingless
           header.main-header
@@ -60,6 +60,8 @@ export default {
 
 html {
   background-color: #f5f5f5;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .right-wrapper {
@@ -73,6 +75,18 @@ html {
     margin-bottom: 1rem;
     @include touch {
       margin-top: ($navbar-height * 2 + 1rem);
+    }
+  }
+  .main-columns {
+    @include touch {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  .main-column {
+    @include touch {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
   .liberty-navbar {
