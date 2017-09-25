@@ -55,7 +55,7 @@ nav.liberty-navbar.navbar
           b-icon(icon="sign-out")
     .navbar-mobile-search-row
       b-field
-        b-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
+        b-input.mobile-search-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
         p.control
           button.button(active-class="" @click="go")
             b-icon(icon="arrow-right")
@@ -164,6 +164,11 @@ export default {
     display: flex;
     .field {
       justify-content: center;
+      flex: 1;
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+    }
+    .mobile-search-input {
       flex: 1;
     }
   }
