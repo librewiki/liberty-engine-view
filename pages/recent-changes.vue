@@ -18,7 +18,7 @@
 import request from '~/utils/request'
 
 export default {
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, req, res, error, store }) {
     store.commit('meta/clear')
     store.commit('meta/update', {
       title: '최근 바뀜'

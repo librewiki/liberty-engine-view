@@ -12,7 +12,7 @@ export default {
   validate ({ params, query, store }) {
     return Number(query.old) && Number(query.new)
   },
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     store.commit('meta/update', {
@@ -33,10 +33,10 @@ export default {
       })
       const [oldRevision, newRevision] = await Promise.all([
         articleManager.getRevision({
-          id: Number(route.query.old)
+          id: Number(query.old)
         }),
         articleManager.getRevision({
-          id: Number(route.query.new)
+          id: Number(query.new)
         })
       ])
       const diffHtml = Diff2Html.getPrettySideBySideHtmlFromDiff(

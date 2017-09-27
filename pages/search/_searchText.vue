@@ -23,7 +23,7 @@ import articleManager from '~/utils/articleManager'
 import request from '~/utils/request'
 
 export default {
-  async asyncData ({ params, req, res, redirect, store, error }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     const searchText = params.searchText
     store.commit('meta/clear')
     let titleMatched = null

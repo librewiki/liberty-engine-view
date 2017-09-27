@@ -4,6 +4,8 @@
     | 이 문서에 대한 편집 권한이 없습니다.
   b-notification(type="is-warning" v-if="errorMessage" :closable="false")
     | {{ errorMessage }}
+  b-notification(v-if="usingOldRev" :closable="false")
+    | 과거 버전을 보고 있습니다. 이대로 편집을 저장하면 이 버전 이후의 편집 내용은 사라집니다.
   b-tabs.editor-switch(type="is-boxed" v-model="modeSwitch")
     b-tab-item(label="편집")
     b-tab-item(label="미리보기")
@@ -28,7 +30,7 @@ export default {
   components: {
     WikiHtml
   },
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     store.commit('meta/update', {
@@ -48,8 +50,15 @@ export default {
         req,
         res
       })
+      const isEditable = article.allowedActions.includes('article:edit')
+      let oldRevision
+      if (query.rev) {
+        oldRevision = await articleManager.getRevision({
+          id: Number(query.rev)
+        })
+      }
       store.commit('meta/update', {
-        title: `"${article.fullTitle}" 편집`,
+        title: isEditable ? `"${article.fullTitle}" 편집` : `"${article.fullTitle}" 원본 보기`,
         toolBox: {
           allowedActions: article.allowedActions,
           fullTitle: article.fullTitle
@@ -58,10 +67,11 @@ export default {
       return {
         new: false,
         fullTitle: article.fullTitle,
-        isEditable: article.allowedActions.includes('article:edit'),
+        isEditable,
         article,
+        usingOldRev: !!oldRevision,
         model: {
-          wikitext: article.wikitext
+          wikitext: oldRevision ? oldRevision.wikitext : article.wikitext
         }
       }
     } catch (err) {

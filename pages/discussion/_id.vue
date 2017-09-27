@@ -36,7 +36,7 @@ export default {
       }
     }
   },
-  async asyncData ({ params, req, res, redirect, store, error }) {
+  async asyncData ({ params, req, res, store, error }) {
     store.commit('meta/clear')
     try {
       const resp = await request({

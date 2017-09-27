@@ -38,7 +38,7 @@ export default {
       }
     }
   },
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     store.commit('meta/update', {

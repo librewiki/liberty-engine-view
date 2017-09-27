@@ -22,7 +22,7 @@ export default {
   components: {
     WikiHtml
   },
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     store.commit('meta/update', {

@@ -13,8 +13,6 @@
         :native-value="revision.id"
         :disabled="model.fairToCompare.length >= 2 && !model.fairToCompare.includes(revision.id)"
       )
-      nuxt-link.full-title(:to="`/article/${encodeURIComponent(revision.articleFullTitle)}`")
-        | {{ revision.articleFullTitle }}
       span.changed-at {{ $moment(revision.createdAt).format('LLLL') }}
       span.author-name {{ revision.authorName || revision.ipAddress }}
       span.changed-length-pos(v-if="revision.changedLength > 0")
@@ -23,6 +21,10 @@
         | ({{ revision.changedLength }})
       span.changed-length-zero(v-else) (0)
       span.summary(v-if="revision.summary") ({{ revision.summary }})
+      span.other-tools
+        | (
+        nuxt-link.show-wikitext(:to="`/edit/${encodeURIComponent(article.fullTitle)}?rev=${revision.id}`") 이 버전 기준으로 편집
+        | )
   hr
   nuxt-link.button.is-primary(
     v-if="model.fairToCompare.length === 2"
@@ -39,7 +41,7 @@ export default {
   components: {
     WikiHtml
   },
-  async asyncData ({ params, req, res, error, store, route }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     store.commit('meta/update', {
@@ -130,6 +132,9 @@ export default {
   }
   .summary {
     color: #aaa;
+    margin-left: 0.5rem;
+  }
+  .other-tools {
     margin-left: 0.5rem;
   }
 }
