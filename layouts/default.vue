@@ -11,9 +11,9 @@
               .level-left
                 .level-item
                   h1.title {{ meta.title }}
-              .level-right
+              .level-right(v-if="meta.toolBox")
                 .level-item
-                  tool-box(v-if="meta.toolBox")
+                  tool-box
           section.main-content
             nuxt
           liberty-footer.footer.main-footer
@@ -74,7 +74,7 @@ html {
     margin-top: ($navbar-height + 1rem);
     margin-bottom: 1rem;
     @include touch {
-      margin-top: ($navbar-height * 2 + 1rem);
+      margin-top: ($navbar-height * 2 + 0.5rem);
     }
   }
   .main-columns {
