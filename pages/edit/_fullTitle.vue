@@ -90,6 +90,7 @@ export default {
           new: true,
           fullTitle,
           isEditable: true, /* @TODO namespace permission check */
+          usingOldRev: false,
           model: {
             wikitext: ''
           }
