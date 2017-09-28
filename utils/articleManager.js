@@ -23,7 +23,7 @@ export default {
   },
   async edit ({ fullTitle, wikitext, latestRevisionId, summary }) {
     await request({
-      path: `articles/full-title/${fullTitle}/wikitext`,
+      path: `articles/full-title/${encodeURIComponent(fullTitle)}/wikitext`,
       method: 'put',
       body: {
         wikitext,
@@ -34,16 +34,25 @@ export default {
   },
   async rename ({ fullTitle, newFullTitle }) {
     await request({
-      path: `articles/full-title/${fullTitle}/full-title`,
+      path: `articles/full-title/${encodeURIComponent(fullTitle)}/full-title`,
       method: 'put',
       body: {
         fullTitle: newFullTitle
       }
     })
   },
+  async delete ({ fullTitle, summary }) {
+    await request({
+      path: `articles/full-title/${encodeURIComponent(fullTitle)}`,
+      method: 'delete',
+      body: {
+        summary
+      }
+    })
+  },
   async addRedirection ({ fromFullTitle, toFullTitle }) {
     await request({
-      path: `articles/full-title/${fromFullTitle}/redirections`,
+      path: `articles/full-title/${encodeURIComponent(fromFullTitle)}/redirections`,
       method: 'post',
       body: {
         fullTitle: toFullTitle
@@ -52,7 +61,7 @@ export default {
   },
   async deleteRedirection ({ fromFullTitle, toFullTitle }) {
     await request({
-      path: `articles/full-title/${fromFullTitle}/redirections?to=${toFullTitle}`,
+      path: `articles/full-title/${encodeURIComponent(fromFullTitle)}/redirections?to=${encodeURIComponent(toFullTitle)}`,
       method: 'delete'
     })
   },
