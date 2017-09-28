@@ -81,7 +81,7 @@ export default {
       this.busy = true
       await request({
         method: 'post',
-        path: `articles/full-title/${this.article.fullTitle}/discussion-topics`,
+        path: `articles/${this.article.fullTitle}/discussion-topics`,
         body: {
           title: this.model.title,
           wikitext: this.model.wikitext

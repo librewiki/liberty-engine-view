@@ -3,7 +3,7 @@ import request from './request'
 export default {
   async getByFullTitle (fullTitle, { fields = [], req, res } = {}) {
     const resp = await request({
-      path: `articles/full-title/${encodeURIComponent(fullTitle)}?fields=${fields.join(',')}`,
+      path: `articles/${encodeURIComponent(fullTitle)}?fields=${fields.join(',')}`,
       method: 'get',
       req,
       res
@@ -23,7 +23,7 @@ export default {
   },
   async edit ({ fullTitle, wikitext, latestRevisionId, summary }) {
     await request({
-      path: `articles/full-title/${encodeURIComponent(fullTitle)}/wikitext`,
+      path: `articles/${encodeURIComponent(fullTitle)}/wikitext`,
       method: 'put',
       body: {
         wikitext,
@@ -34,7 +34,7 @@ export default {
   },
   async rename ({ fullTitle, newFullTitle }) {
     await request({
-      path: `articles/full-title/${encodeURIComponent(fullTitle)}/full-title`,
+      path: `articles/${encodeURIComponent(fullTitle)}/full-title`,
       method: 'put',
       body: {
         fullTitle: newFullTitle
@@ -43,7 +43,7 @@ export default {
   },
   async delete ({ fullTitle, summary }) {
     await request({
-      path: `articles/full-title/${encodeURIComponent(fullTitle)}`,
+      path: `articles/${encodeURIComponent(fullTitle)}`,
       method: 'delete',
       body: {
         summary
@@ -52,7 +52,7 @@ export default {
   },
   async addRedirection ({ fromFullTitle, toFullTitle }) {
     await request({
-      path: `articles/full-title/${encodeURIComponent(fromFullTitle)}/redirections`,
+      path: `articles/${encodeURIComponent(fromFullTitle)}/redirections`,
       method: 'post',
       body: {
         fullTitle: toFullTitle
@@ -61,7 +61,7 @@ export default {
   },
   async deleteRedirection ({ fromFullTitle, toFullTitle }) {
     await request({
-      path: `articles/full-title/${encodeURIComponent(fromFullTitle)}/redirections?to=${encodeURIComponent(toFullTitle)}`,
+      path: `articles/${encodeURIComponent(fromFullTitle)}/redirections?to=${encodeURIComponent(toFullTitle)}`,
       method: 'delete'
     })
   },

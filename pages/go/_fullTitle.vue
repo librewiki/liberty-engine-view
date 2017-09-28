@@ -12,7 +12,7 @@ export default {
       })
       const resp = await request({
         method: 'get',
-        path: `articles/full-title-ci/${encodeURIComponent(params.fullTitle)}`,
+        path: `search/article-case-insensitive-with-redirection/${encodeURIComponent(params.fullTitle)}`,
         req,
         res
       })

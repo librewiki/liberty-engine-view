@@ -6,6 +6,7 @@ const prefix = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhos
 
 async function request ({
   path,
+  version = 1,
   method = 'get',
   body,
   req,
@@ -38,7 +39,7 @@ async function request ({
   if (path[0] === '/') {
     path = path.slice(1)
   }
-  const url = `${prefix}/${path}`
+  const url = `${prefix}/v${version}/${path}`
   return axios({
     url,
     method,
