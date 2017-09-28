@@ -80,11 +80,13 @@ export default {
     go () {
       if (this.searchInput) {
         this.$router.push(`/go/${encodeURIComponent(this.searchInput)}`)
+        this.searchInput = ''
       }
     },
     search () {
       if (this.searchInput) {
         this.$router.push(`/search/${encodeURIComponent(this.searchInput)}`)
+        this.searchInput = ''
       }
     },
     logout () {
