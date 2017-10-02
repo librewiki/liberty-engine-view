@@ -36,7 +36,9 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/matchesPolyfill', '~plugins/buefy', '~plugins/moment'],
+  plugins: [{
+    src: '~plugins/matchesPolyfill', ssr: false
+  }, '~plugins/buefy', '~plugins/moment'],
   css: [
     { src: 'vue2-animate/dist/vue2-animate.min.css', lang: 'css' },
     { src: 'font-awesome/css/font-awesome.css', lang: 'css' },
