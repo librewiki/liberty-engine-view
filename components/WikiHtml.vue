@@ -53,8 +53,34 @@ export default {
     line-height: 1.5;
   }
 
-  h2 {
+  h1, h2, h3, h4, h5, h6 {
     margin: 0.5rem 0;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  h5 {
+    font-size: 1.3rem;
+  }
+
+  h6 {
+    font-size: 1.1rem;
   }
 
   p {
