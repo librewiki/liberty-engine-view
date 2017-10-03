@@ -171,6 +171,11 @@ export default {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       box-shadow: unset;
+      &:focus,
+      &:active,
+      &:hover {
+        border-color: $border
+      }
     }
   }
   .preview-box {
