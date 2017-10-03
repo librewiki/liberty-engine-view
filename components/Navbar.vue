@@ -32,6 +32,8 @@ nav.liberty-navbar.navbar
             b-icon(icon="caret-down")
           b-dropdown-item(has-link)
             a(href="#") 관리자 도구
+          b-dropdown-item(has-link)
+            nuxt-link(to="/upload") 파일 업로드
         b-dropdown
           a.navbar-item(slot="trigger")
             b-icon(icon="book")
