@@ -1,11 +1,14 @@
 <template lang="pug">
 .page.page-article
-  wiki-html(v-if="exists" :html="article.html")
+  template(v-if="exists")
+    wiki-html(:html="article.html")
+    img(v-if="mediaFile" :src="`/media/${encodeURIComponent(mediaFile.filename)}`")
 </template>
 
 <script>
 import articleManager from '~/utils/articleManager'
 import WikiHtml from '~/components/WikiHtml'
+import request from '~/utils/request'
 
 export default {
   components: {
@@ -41,9 +44,20 @@ export default {
           allowedActions: article.allowedActions
         }
       })
+      let mediaFile = null
+      if (article.namespaceId === 6) {
+        const resp = await request({
+          method: 'get',
+          path: `media-files/${article.id}`,
+          req,
+          res
+        })
+        mediaFile = resp.data.mediaFile
+      }
       return {
         exists: true,
-        article
+        article,
+        mediaFile
       }
     } catch (err) {
       if (!err.response) {
