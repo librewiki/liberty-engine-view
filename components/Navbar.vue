@@ -42,7 +42,7 @@ nav.liberty-navbar.navbar
       .navbar-end
         .search-box-wrapper
           b-field
-            b-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
+            b-input.navbar-search-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
             p.control
               button.button(active-class="" @click="go")
                 b-icon(icon="arrow-right")
@@ -172,6 +172,15 @@ export default {
     }
     .mobile-search-input {
       flex: 1;
+    }
+  }
+  .navbar-search-input,
+  .mobile-search-input {
+    input:focus,
+    input:active,
+    input:hover {
+      border-color: rgb(219, 219, 219);
+      box-shadow: inset 0 1px 2px hsla(0,0%,4%,.1);
     }
   }
 }
