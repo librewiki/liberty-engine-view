@@ -1,8 +1,8 @@
 <template lang="pug">
 .page.page-article
   template(v-if="exists")
-    wiki-html(:html="article.html")
     img(v-if="mediaFile" :src="`/media/${encodeURIComponent(mediaFile.filename)}`")
+    wiki-html(:html="article.html")
 </template>
 
 <script>
