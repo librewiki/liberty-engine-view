@@ -4,12 +4,12 @@ nav.panel.live-recent
     .tabs.is-toggle.is-fullwidth
       ul
         li
-          a.is-active 최근바뀜
+          a(:class="{ 'is-active': mode === 'ARTICLE' }" @click="mode = 'ARTICLE'; fetchLiveRecent()" role="button") 최근바뀜
         li
-          a 최근토론
+          a(:class="{ 'is-active': mode === 'DISCUSSION' }" @click="mode = 'DISCUSSION'; fetchLiveRecent()" role="button") 최근토의
   .live-recent-content
-    nuxt-link.panel-block(v-for="item in items" :to="`/article/${encodeURIComponent(item.fullTitle)}`" :key="item.key")
-      | [{{ item.timeString }}] {{ item.fullTitle }}
+    nuxt-link.panel-block(v-for="item in items" :to="item.to" :key="item.key")
+      | [{{ item.timeString }}] {{ item.text }}
   .live-recent-footer.panel-block
     nuxt-link.button.is-primary.is-small(to="/recent-changes" title="최근 바뀜") 더보기
 </template>
@@ -32,15 +32,29 @@ export default {
       if (this.pending) return
       this.pending = true
       try {
-        const resp = await request({
-          method: 'get',
-          path: 'revisions?limit=10&distinct=1'
-        })
-        this.items = resp.data.revisions.map(rev => ({
-          key: rev.id,
-          timeString: this.$moment(rev.createdAt).format('HH[:]mm[:]ss'),
-          fullTitle: rev.articleFullTitle
-        }))
+        if (this.mode === 'ARTICLE') {
+          const resp = await request({
+            method: 'get',
+            path: 'revisions?limit=10&distinct=1'
+          })
+          this.items = resp.data.revisions.map(rev => ({
+            key: 'r' + rev.id,
+            timeString: this.$moment(rev.createdAt).format('HH[:]mm[:]ss'),
+            text: rev.articleFullTitle,
+            to: `/article/${encodeURIComponent(rev.articleFullTitle)}`
+          }))
+        } else {
+          const resp = await request({
+            method: 'get',
+            path: 'discussion-topics?limit=10&order=updatedAt'
+          })
+          this.items = resp.data.discussionTopics.map(topic => ({
+            key: 't' + topic.id,
+            timeString: this.$moment(topic.updatedAt).format('HH[:]mm[:]ss'),
+            text: topic.article.fullTitle,
+            to: `/discussion/${topic.id}`
+          }))
+        }
         this.pending = false
         this.error = false
       } catch (err) {

@@ -1,7 +1,7 @@
 <template lang="pug">
 .card.discussion-comment-card
   header.card-header
-    .comment-author {{ comment.author || comment.ipAddress }}
+    .comment-author {{ comment.authorName || comment.ipAddress }}
     .comment-date {{ $moment(comment.createdAt).format('LLLL') }}
   .card-content
     wiki-html(:html="comment.html")
