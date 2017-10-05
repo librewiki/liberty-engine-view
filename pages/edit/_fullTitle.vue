@@ -170,7 +170,8 @@ export default {
       border-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
-      box-shadow: unset;
+      box-shadow: initial;
+      height: initial;
       &:focus,
       &:active,
       &:hover {
@@ -185,6 +186,7 @@ export default {
     border-bottom-left-radius: $radius;
     border-bottom-right-radius: $radius;
     padding: 1rem;
+    margin-bottom: 0.75rem;
   }
 }
 </style>
