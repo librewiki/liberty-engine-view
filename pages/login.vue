@@ -11,6 +11,7 @@
 import { mapState } from 'vuex'
 
 export default {
+  middleware: ['shouldBeAnonymous'],
   asyncData ({ store }) {
     store.commit('meta/clear')
     store.commit('meta/update', {

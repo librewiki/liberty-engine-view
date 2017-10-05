@@ -30,7 +30,7 @@ nav.liberty-navbar.navbar
             b-icon(icon="gear")
             | 도구
             b-icon(icon="caret-down")
-          b-dropdown-item(has-link)
+          b-dropdown-item(has-link v-if="user.isAdmin")
             nuxt-link(to="/admin") 관리자 도구
           b-dropdown-item(has-link)
             nuxt-link(to="/upload") 파일 업로드

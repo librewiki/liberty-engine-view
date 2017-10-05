@@ -11,11 +11,12 @@
 import AdminMenu from '~/components/AdminMenu'
 
 export default {
+  middleware: ['shouldBeAdmin'],
   components: {
     AdminMenu
   },
-  async asyncData ({ redirect }) {
-    redirect('/admin/statistics')
+  asyncData ({ redirect }) {
+    return redirect('/admin/statistics')
   }
 }
 </script>
