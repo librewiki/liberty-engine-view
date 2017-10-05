@@ -21,7 +21,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['babel-polyfill', 'buefy', 'axios', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html'],
+    vendor: ['babel-polyfill', 'buefy', 'axios', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
     /*
     ** Run ESLINT on save
     */
@@ -36,9 +36,12 @@ module.exports = {
       }
     }
   },
-  plugins: [{
-    src: '~plugins/matchesPolyfill', ssr: false
-  }, '~plugins/buefy', '~plugins/moment'],
+  plugins: [
+    { src: '~plugins/matchesPolyfill', ssr: false },
+    '~plugins/buefy',
+    '~plugins/moment',
+    '~plugins/vue-gravatar'
+  ],
   css: [
     { src: 'vue2-animate/dist/vue2-animate.min.css', lang: 'css' },
     { src: 'font-awesome/css/font-awesome.css', lang: 'css' },

@@ -53,8 +53,11 @@ nav.liberty-navbar.navbar
                 b-icon(icon="search")
         nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login")
           b-icon(icon="sign-in")
-        a.navbar-item(v-else role="button" @click="logout")
-          b-icon(icon="sign-out")
+        template(v-else)
+          a.navbar-item
+            v-gravatar.user-gravatar(:email="user.email")
+          a.navbar-item(role="button" @click="logout")
+            b-icon(icon="sign-out")
     .navbar-mobile-search-row
       b-field
         b-input.mobile-search-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
@@ -184,6 +187,11 @@ export default {
       border-color: rgb(219, 219, 219);
       box-shadow: inset 0 1px 2px hsla(0,0%,4%,.1);
     }
+  }
+  .user-gravatar {
+    max-height: 2rem;
+    border-radius: 0.35rem;
+    border: 1px solid #e1e8ed;
   }
 }
 </style>
