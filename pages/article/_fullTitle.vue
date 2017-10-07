@@ -14,11 +14,13 @@ export default {
   components: {
     WikiHtml
   },
-  async asyncData ({ params, req, res, error, store }) {
+  async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
+    const redirectedFrom = query.redirectedFrom || undefined
     store.commit('meta/update', {
-      title: fullTitle
+      title: fullTitle,
+      redirectedFrom: redirectedFrom
     })
     try {
       const article = await articleManager.getByFullTitle(fullTitle, {

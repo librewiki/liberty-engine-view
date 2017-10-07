@@ -17,7 +17,7 @@ export default {
         res
       })
       if (resp.data.type === 'REDIRECTION') {
-        redirect(`/article/${encodeURIComponent(resp.data.fullTitle)}?redirected-from=${encodeURIComponent(params.fullTitle)}`)
+        redirect(`/article/${encodeURIComponent(resp.data.fullTitle)}?redirectedFrom=${encodeURIComponent(params.fullTitle)}`)
       } else {
         redirect(`/article/${encodeURIComponent(resp.data.fullTitle)}`)
       }

@@ -11,6 +11,10 @@
               .level-left
                 .level-item
                   h1.title {{ meta.title }}
+                  div.meta-info(v-if="meta.redirectedFrom")
+                    | (
+                    nuxt-link(:to="`/article/${encodeURIComponent(meta.redirectedFrom)}`") {{ meta.redirectedFrom }}
+                    | 에서 넘어옴)
               .level-right(v-if="meta.toolBox")
                 .level-item
                   tool-box
@@ -96,6 +100,10 @@ html {
     border-top-right-radius: $radius-large;
     background-color: $background;
     .title-wrapper-row {
+      .level-left > .level-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
       @include mobile {
         display: flex;
         flex-direction: column-reverse;

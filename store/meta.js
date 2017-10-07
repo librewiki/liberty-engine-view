@@ -1,7 +1,8 @@
 export const state = () => ({
   title: null,
   updatedAt: null,
-  toolBox: null
+  toolBox: null,
+  redirectedFrom: null
 })
 
 export const mutations = {
@@ -9,10 +10,12 @@ export const mutations = {
     state.title = null
     state.updatedAt = null
     state.toolBox = null
+    state.redirectedFrom = null
   },
-  update (state, { title, updatedAt, allowedActions, toolBox, siteNotice }) {
+  update (state, { title, updatedAt, toolBox, redirectedFrom }) {
     if (title !== undefined) state.title = title
     if (updatedAt !== undefined) state.updatedAt = updatedAt
     if (toolBox !== undefined) state.toolBox = toolBox
+    if (redirectedFrom !== undefined) state.redirectedFrom = redirectedFrom
   }
 }
