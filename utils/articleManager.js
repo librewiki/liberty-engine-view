@@ -50,18 +50,18 @@ export default {
       }
     })
   },
-  async addRedirection ({ fromFullTitle, toFullTitle }) {
+  async addRedirection ({ destinationFullTitle, sourceFullTitle }) {
     await request({
-      path: `articles/${encodeURIComponent(fromFullTitle)}/redirections`,
+      path: `articles/${encodeURIComponent(destinationFullTitle)}/redirections`,
       method: 'post',
       body: {
-        fullTitle: toFullTitle
+        sourceFullTitle
       }
     })
   },
-  async deleteRedirection ({ fromFullTitle, toFullTitle }) {
+  async deleteRedirection ({ destinationFullTitle, sourceFullTitle }) {
     await request({
-      path: `articles/${encodeURIComponent(fromFullTitle)}/redirections?to=${encodeURIComponent(toFullTitle)}`,
+      path: `articles/${encodeURIComponent(destinationFullTitle)}/redirections?source=${encodeURIComponent(sourceFullTitle)}`,
       method: 'delete'
     })
   },

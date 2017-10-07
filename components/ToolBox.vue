@@ -36,6 +36,8 @@
       b-icon(icon="caret-down")
     b-dropdown-item(:has-link="true")
       nuxt-link(:to="`/backlinks/${encodedFullTitle}`") 역링크
+    b-dropdown-item(:has-link="true")
+      nuxt-link(:to="`/redirections/${encodedFullTitle}`") 넘겨주기
     b-dropdown-item 문서명 변경
     b-dropdown-item(v-if="allowedActions.includes('article:delete')" :has-link="true")
       nuxt-link.has-text-danger(:to="`/delete/${encodedFullTitle}`") 삭제
