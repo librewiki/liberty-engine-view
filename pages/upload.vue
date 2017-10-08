@@ -31,7 +31,7 @@
       label="파일의 새 이름 (네임스페이스 제외)"
       message="파일을 잘 설명하고 입력하기 쉬운 이름을 지어주세요. 확장자는 입력하지 않아도 됩니다."
     )
-      b-input(v-model="model.filename")
+      b-input(v-model="model.title")
     b-field(label="파일 설명 (위키텍스트)")
       b-input(
         type="textarea"
@@ -58,7 +58,7 @@ export default {
     return {
       model: {
         files: [],
-        filename: '',
+        title: '',
         wikitext: '',
         summary: ''
       },
@@ -92,12 +92,12 @@ export default {
   },
   methods: {
     async submit () {
-      if (!this.selectedFile || !this.model.filename) {
+      if (!this.selectedFile || !this.model.title) {
         return
       }
       const formData = new FormData()
       formData.append('file', this.selectedFile)
-      formData.append('filename', this.model.filename.trim())
+      formData.append('title', this.model.title.trim())
       formData.append('wikitext', this.model.wikitext.trim())
       formData.append('summary', this.model.summary.trim())
       await request({
@@ -105,7 +105,7 @@ export default {
         path: 'media-files',
         body: formData
       })
-      const descriptionArticleName = `파일:${this.model.filename}`
+      const descriptionArticleName = `파일:${this.model.title}`
       this.$router.push(`/article/${encodeURIComponent(descriptionArticleName)}`)
     }
   }
