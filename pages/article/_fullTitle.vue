@@ -1,6 +1,11 @@
 <template lang="pug">
 .page.page-article
   template(v-if="exists")
+    .box.category-box(v-if="article.categories.length")
+      | 분류:
+      ul.categories
+        li.category-item(v-for="cat in article.categories")
+          nuxt-link(:to="`/article/${encodeURIComponent('분류:' + cat)}`") {{ cat }}
     img(v-if="mediaFile" :src="`/media/${encodeURIComponent(mediaFile.filename)}`")
     wiki-html(:html="article.html")
 </template>
@@ -32,6 +37,7 @@ export default {
           'updatedAt',
           'html',
           'wikitext',
+          'categories',
           'latestRevisionId',
           'allowedActions'
         ],
@@ -81,3 +87,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.page-article {
+  .category-box {
+    display: flex;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+  .categories {
+    display: flex;
+    margin-left: 0.5rem;
+  }
+  .category-item {
+    margin: 0 0.5rem;
+  }
+}
+</style>
