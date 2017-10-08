@@ -1,9 +1,17 @@
 <template lang="pug">
 .page.page-backlinks
-  ul(v-if="backlinks.length")
-    li(v-for="backlink in backlinks")
+  ul(v-if="articleLinks.length + fileLinks.length")
+    li(v-for="backlink in articleLinks")
       nuxt-link(:to="`/article/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") {{ backlink.sourceArticle.fullTitle }}
       | (
+      nuxt-link(:to="`/backlinks/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") ← 가리키는 문서 목록
+      | |
+      nuxt-link(:to="`/edit/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") 편집
+      | )
+    li(v-for="backlink in fileLinks")
+      nuxt-link(:to="`/article/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") {{ backlink.sourceArticle.fullTitle }}
+      = " "
+      | (연결된 파일) (
       nuxt-link(:to="`/backlinks/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") ← 가리키는 문서 목록
       | |
       nuxt-link(:to="`/edit/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") 편집
@@ -51,10 +59,11 @@ export default {
         req,
         res
       })
-      const backlinks = resp.data.links
+      const { articleLinks, fileLinks } = resp.data
       return {
         article,
-        backlinks
+        articleLinks,
+        fileLinks
       }
     } catch (err) {
       if (!err.response) {
