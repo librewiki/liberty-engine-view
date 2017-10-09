@@ -8,16 +8,19 @@
           nuxt-link(:to="`/article/${encodeURIComponent('분류:' + cat)}`") {{ cat }}
     img(v-if="mediaFile" :src="`/media/${encodeURIComponent(mediaFile.filename)}`")
     wiki-html(:html="article.html")
+    category-tree(v-if="isCategory" :subcategories="subcategories" :members="members")
 </template>
 
 <script>
 import articleManager from '~/utils/articleManager'
 import WikiHtml from '~/components/WikiHtml'
+import CategoryTree from '~/components/CategoryTree'
 import request from '~/utils/request'
 
 export default {
   components: {
-    WikiHtml
+    WikiHtml,
+    CategoryTree
   },
   async asyncData ({ params, query, req, res, error, store }) {
     store.commit('meta/clear')
@@ -62,10 +65,26 @@ export default {
         })
         mediaFile = resp.data.mediaFile
       }
+      const isCategory = article.namespaceId === 14
+      let members = null
+      let subcategories = null
+      if (isCategory) {
+        const resp = await request({
+          method: 'get',
+          path: `categories/${encodeURIComponent(article.title)}`,
+          req,
+          res
+        })
+        subcategories = resp.data.subcategories
+        members = resp.data.members
+      }
       return {
         exists: true,
         article,
-        mediaFile
+        mediaFile,
+        isCategory,
+        subcategories,
+        members
       }
     } catch (err) {
       if (!err.response) {
