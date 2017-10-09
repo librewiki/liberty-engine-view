@@ -134,6 +134,7 @@ export default {
             summary: this.model.summary
           })
           this.$router.push(`/article/${this.fullTitle}`)
+          this.$eventHub.$emit('reload-live-recent')
         } catch (err) {
           if (!err.response) throw err
           if (err.response.data.name === 'NoChangeError') {

@@ -40,7 +40,8 @@ module.exports = {
     { src: '~plugins/matchesPolyfill', ssr: false },
     '~plugins/buefy',
     '~plugins/moment',
-    '~plugins/vue-gravatar'
+    '~plugins/vue-gravatar',
+    { src: '~plugins/eventHub', ssr: false }
   ],
   css: [
     { src: 'vue2-animate/dist/vue2-animate.min.css', lang: 'css' },

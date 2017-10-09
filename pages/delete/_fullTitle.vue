@@ -66,6 +66,7 @@ export default {
     async submit () {
       await articleManager.delete({ fullTitle: this.article.fullTitle, summary: this.model.summary })
       this.$router.push(`/`)
+      this.$eventHub.$emit('reload-live-recent')
     }
   }
 }

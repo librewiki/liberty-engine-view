@@ -35,13 +35,13 @@ export default {
         if (this.mode === 'ARTICLE') {
           const resp = await request({
             method: 'get',
-            path: 'revisions?limit=10&distinct=1'
+            path: 'articles?limit=10&order=updatedAt'
           })
-          this.items = resp.data.revisions.map(rev => ({
-            key: 'r' + rev.id,
-            timeString: this.$moment(rev.createdAt).format('HH[:]mm[:]ss'),
-            text: rev.articleFullTitle,
-            to: `/article/${encodeURIComponent(rev.articleFullTitle)}`
+          this.items = resp.data.articles.map(article => ({
+            key: 'a' + article.id,
+            timeString: this.$moment(article.updatedAt).format('HH[:]mm[:]ss'),
+            text: article.fullTitle,
+            to: `/article/${encodeURIComponent(article.fullTitle)}`
           }))
         } else {
           const resp = await request({
@@ -64,9 +64,13 @@ export default {
     }
   },
   mounted () {
+    this.$eventHub.$on('reload-live-recent', this.fetchLiveRecent)
     this.fetchLiveRecent()
     clearInterval(this.fetchLiveRecent)
     setInterval(this.fetchLiveRecent, 30 * 1000)
+  },
+  beforeDestroy () {
+    this.$eventHub.$off('reload-live-recent', this.fetchLiveRecent)
   }
 }
 </script>

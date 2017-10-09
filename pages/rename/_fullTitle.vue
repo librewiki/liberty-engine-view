@@ -108,6 +108,7 @@ export default {
         message: '문서명을 변경했습니다.',
         type: 'is-success'
       })
+      this.$eventHub.$emit('reload-live-recent')
     }
   },
   watch: {

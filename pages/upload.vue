@@ -107,6 +107,7 @@ export default {
       })
       const descriptionArticleName = `파일:${this.model.title}`
       this.$router.push(`/article/${encodeURIComponent(descriptionArticleName)}`)
+      this.$eventHub.$emit('reload-live-recent')
     }
   }
 }
