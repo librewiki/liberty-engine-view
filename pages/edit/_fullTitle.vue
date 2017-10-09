@@ -125,6 +125,7 @@ export default {
           summary: this.model.summary
         })
         this.$router.push(`/article/${this.fullTitle}`)
+        this.$eventHub.$emit('reload-live-recent')
       } else {
         try {
           await articleManager.edit({
