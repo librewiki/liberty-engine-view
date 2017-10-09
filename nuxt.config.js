@@ -10,7 +10,13 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'LibertyEngine view' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.css',
+        integrity: 'sha384-FkMHIpkXHDi3o2XSOOa5/9TpXg4AX4DXPSC6z28hi2Eqn/27ea8MTV18rTq9OyQR',
+        crossorigin: 'anonymous'
+      }
     ]
   },
   /*
