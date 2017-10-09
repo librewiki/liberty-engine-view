@@ -13,7 +13,9 @@
         :native-value="revision.id"
         :disabled="model.fairToCompare.length >= 2 && !model.fairToCompare.includes(revision.id)"
       )
-      span.changed-at {{ $moment(revision.createdAt).format('LLLL') }}
+      span.changed-at
+        time(:datetime="$moment(revision.createdAt).format()")
+          nuxt-link(:to="`/article/${encodeURIComponent(article.fullTitle)}?rev=${revision.id}`") {{ $moment(revision.createdAt).format('LLLL') }}
       span.author-name {{ revision.authorName || revision.ipAddress }}
       span.changed-length-pos(v-if="revision.changedLength > 0")
         | ({{`+ ${revision.changedLength}` }})

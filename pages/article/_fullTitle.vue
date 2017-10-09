@@ -26,12 +26,14 @@ export default {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     const redirectedFrom = query.redirectedFrom || undefined
+    const titleToShow = Number(query.rev) ? `${fullTitle} (${query.rev}판)` : fullTitle
     store.commit('meta/update', {
-      title: fullTitle,
+      title: titleToShow,
       redirectedFrom: redirectedFrom
     })
     try {
       const article = await articleManager.getByFullTitle(fullTitle, {
+        revisionId: Number(query.rev) || undefined,
         fields: [
           'id',
           'fullTitle',
@@ -48,7 +50,7 @@ export default {
         res
       })
       store.commit('meta/update', {
-        title: article.fullTitle,
+        title: titleToShow,
         updatedAt: article.updatedAt,
         toolBox: {
           fullTitle: article.fullTitle,

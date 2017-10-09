@@ -4,7 +4,9 @@
     li(v-for="revision in recentChanges" :key="revision.id")
       nuxt-link.full-title(:to="`/article/${encodeURIComponent(revision.articleFullTitle)}`")
         | {{ revision.articleFullTitle }}
-      span.changed-at {{ $moment(revision.createdAt).format('LLLL') }}
+      span.changed-at
+        time(:datetime="$moment(revision.createdAt).format()")
+          | {{ $moment(revision.createdAt).format('LLLL') }}
       span.author-name {{ revision.authorName || revision.ipAddress }}
       span.changed-length-pos(v-if="revision.changedLength > 0")
         | ({{`+ ${revision.changedLength}` }})

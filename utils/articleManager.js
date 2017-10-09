@@ -1,9 +1,16 @@
 import request from './request'
+import querystring from 'querystring'
 
 export default {
-  async getByFullTitle (fullTitle, { fields = [], req, res } = {}) {
+  async getByFullTitle (fullTitle, { revisionId, fields = [], req, res } = {}) {
+    const queryObj = {
+      rev: revisionId, fields: fields.join(',')
+    }
+    for (const key of Object.keys(queryObj)) {
+      if (!queryObj[key]) delete queryObj[key]
+    }
     const resp = await request({
-      path: `articles/${encodeURIComponent(fullTitle)}?fields=${fields.join(',')}`,
+      path: `articles/${encodeURIComponent(fullTitle)}?${querystring.stringify(queryObj)}`,
       method: 'get',
       req,
       res
