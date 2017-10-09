@@ -34,6 +34,9 @@ export default {
           fullTitle: article.fullTitle
         }
       })
+      if (!article.allowedActions.includes('article:delete')) {
+        return error({ statusCode: 403, message: '이 문서를 삭제할 권한이 없습니다.' })
+      }
       return {
         article
       }
