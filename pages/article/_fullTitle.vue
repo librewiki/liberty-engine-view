@@ -26,9 +26,8 @@ export default {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     const redirectedFrom = query.redirectedFrom || undefined
-    const titleToShow = Number(query.rev) ? `${fullTitle} (${query.rev}판)` : fullTitle
     store.commit('meta/update', {
-      title: titleToShow,
+      title: fullTitle,
       redirectedFrom: redirectedFrom
     })
     try {
@@ -49,8 +48,15 @@ export default {
         req,
         res
       })
+      let oldRevision
+      if (Number(query.rev)) {
+        oldRevision = {
+          createdAt: article.updatedAt
+        }
+      }
       store.commit('meta/update', {
-        title: titleToShow,
+        title: fullTitle,
+        oldRevision,
         updatedAt: article.updatedAt,
         toolBox: {
           fullTitle: article.fullTitle,

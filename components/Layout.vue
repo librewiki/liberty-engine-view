@@ -11,10 +11,13 @@
               .level-left
                 .level-item
                   h1.title {{ meta.title }}
-                  div.meta-info(v-if="meta.redirectedFrom")
-                    | (
-                    nuxt-link(:to="`/article/${encodeURIComponent(meta.redirectedFrom)}`") {{ meta.redirectedFrom }}
-                    | 에서 넘어옴)
+                  .meta-info(v-if="meta.redirectedFrom || meta.oldRevision")
+                    .redirected-from(v-if="meta.redirectedFrom")
+                      | (
+                      nuxt-link(:to="`/article/${encodeURIComponent(meta.redirectedFrom)}`") {{ meta.redirectedFrom }}
+                      | 에서 넘어옴)
+                    .old-revision(v-if="meta.oldRevision")
+                      | {{ $moment(meta.oldRevision.createdAt).format('LLLL') }} 판
               .level-right(v-if="meta.toolBox")
                 .level-item
                   tool-box
