@@ -121,6 +121,4 @@ export default {
 </script>
 
 <style lang="scss">
-.page-rename {
-}
 </style>
