@@ -65,6 +65,20 @@ html {
   -webkit-overflow-scrolling: touch;
 }
 
+a.new {
+  color: $newlink-color;
+}
+
+a.external {
+  color: #33b733;
+  &::before {
+    font: normal normal normal 14px/1 FontAwesome;
+    text-align: center;
+    color: #33b733;
+    content: "\f0c1";
+  }
+}
+
 .right-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -141,9 +155,5 @@ html {
     border-bottom-right-radius: $radius-large;
     background-color: $background;
   }
-}
-
-a.new {
-  color: $newlink-color;
 }
 </style>

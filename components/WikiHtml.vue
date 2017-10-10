@@ -38,6 +38,8 @@ export default {
 
 <style lang="scss">
 .wiki-content {
+  line-height: 1.6rem;
+
   pre {
     display: block;
     color: #333;
@@ -54,7 +56,12 @@ export default {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    margin: 0.5rem 0;
+    margin-top: 1rem;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    border-bottom: 1px dashed #e1e8ed;    
     font-weight: 500;
     line-height: 1.1;
   }
@@ -88,13 +95,26 @@ export default {
   }
 
   ol {
-    margin-left: 2rem;
-    margin-right: 1rem;
+    margin: 0.3em 0 0 3.2em;
   }
 
   ul {
-    margin-left: 1rem;
+    margin: 0.5rem 0 0.5rem 1.6rem;
     list-style-image: url(data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%225%22%20height%3D%2213%22%3E%0A%3Ccircle%20cx%3D%222.5%22%20cy%3D%229.5%22%20r%3D%222.5%22%20fill%3D%22%23373a3c%22%2F%3E%0A%3C%2Fsvg%3E%0A);
+  }
+
+  dt {
+    font-weight: 700;
+  }
+
+  dd {
+    margin-left: 1.6em;
+    margin-right: 0;
+  }
+
+  small {
+    font-size: 80%;
+    font-weight: 400;
   }
 
   .toc {
@@ -126,9 +146,10 @@ export default {
     	border-top: none;
     	border-bottom-right-radius: 0.35rem;
     	border-bottom-left-radius: 0.35rem;
+      margin: 0 !important;      
     }
     ul {
-      margin: 0;
+      margin: 0 0 0 2em;
     }
     .toc-text {
       color: #373a3c;
