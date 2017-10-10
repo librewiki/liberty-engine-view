@@ -5,6 +5,10 @@
   b-field(label="비밀번호")
     b-input(placeholder="비밀번호를 입력하세요" v-model="model.password" type="password")
   button.button.is-primary(@click="submit") 로그인
+  p
+    | 계정이 없나요?
+    = " "
+    nuxt-link(to="/signup") 회원가입
 </template>
 
 <script>
