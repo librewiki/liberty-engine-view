@@ -3,7 +3,7 @@
   b-field(label="사용자 이름")
     b-input(placeholder="사용자 이름을 입력하세요" v-model="model.username")
   b-field(label="비밀번호")
-    b-input(placeholder="비밀번호를 입력하세요" v-model="model.password" type="password")
+    b-input(placeholder="비밀번호를 입력하세요 (6자 이상)" v-model="model.password" type="password")
   b-field(label="비밀번호 확인")
     b-input(placeholder="비밀번호를 다시 입력하세요" v-model="model.passwordRetype" type="password")
   b-field(label="이메일 주소")
@@ -41,6 +41,13 @@ export default {
         this.$toast.open({
           duration: 3000,
           message: '항목을 모두 입력해 주세요.',
+          type: 'is-warning'
+        })
+      }
+      if (this.model.password.length < 6) {
+        this.$toast.open({
+          duration: 3000,
+          message: '비밀번호는 6자 이상 입력해야 합니다.',
           type: 'is-warning'
         })
       }

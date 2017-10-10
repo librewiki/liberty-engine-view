@@ -35,12 +35,20 @@ export default {
   },
   methods: {
     async submit () {
-      await this.$store.dispatch('user/login', {
-        username: this.model.username,
-        password: this.model.password
-      })
-      if (this.user.isLoggedIn) {
-        this.$router.push(`/article/${encodeURIComponent('사용자:' + this.user.username)}`)
+      try {
+        await this.$store.dispatch('user/login', {
+          username: this.model.username,
+          password: this.model.password
+        })
+        if (this.user.isLoggedIn) {
+          this.$router.push(`/article/${encodeURIComponent('사용자:' + this.user.username)}`)
+        }
+      } catch (err) {
+        this.$toast.open({
+          duration: 3000,
+          message: '아이디와 비밀번호를 확인해 주세요.',
+          type: 'is-danger'
+        })
       }
     }
   }
