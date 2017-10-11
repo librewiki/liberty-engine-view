@@ -50,7 +50,6 @@ module.exports = {
     { src: '~plugins/eventHub', ssr: false }
   ],
   css: [
-    { src: 'vue2-animate/dist/vue2-animate.min.css', lang: 'css' },
     { src: 'font-awesome/css/font-awesome.css', lang: 'css' },
     { src: 'diff2html/dist/diff2html.css', lang: 'css' }
   ],

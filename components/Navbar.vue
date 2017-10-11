@@ -5,11 +5,34 @@ nav.liberty-navbar.navbar
       nuxt-link(to="/")
         | {{ settings.data.wikiName }}
       .navbar-mobile-buttons
-        nuxt-link(to="/recent-changes")
+        nuxt-link.navbar-item(to="/recent-changes" active-class="")
           b-icon(icon="refresh")
-        nuxt-link(to="/random")
+        nuxt-link.navbar-item(to="/random" active-class="")
           b-icon(icon="random")
+        b-dropdown
+          a.navbar-item(slot="trigger")
+            b-icon(icon="comments")
+          b-dropdown-item(has-link)
+            a(href="#") 위키방
+        b-dropdown
+          a.navbar-item(slot="trigger")
+            b-icon(icon="gear")
+          b-dropdown-item(has-link v-if="user.isAdmin")
+            nuxt-link(to="/admin") 관리자 도구
+          b-dropdown-item(has-link)
+            nuxt-link(to="/upload") 파일 업로드
+        b-dropdown
+          a.navbar-item(slot="trigger")
+            b-icon(icon="book")
+          b-dropdown-item(has-link)
+            a(href="#") 문법 도움말
+          b-dropdown-item(has-link)          
+            nuxt-link(:to="`/article/${encodeURIComponent('TeX 문법')}`") TeX 문법
       .navbar-mobile-right-buttons
+        nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login")
+          b-icon(icon="sign-in")
+        a.navbar-item(v-else)
+          v-gravatar.user-gravatar(:email="user.email")
     .navbar-menu
       .navbar-start
         nuxt-link.navbar-item(to="/recent-changes")
@@ -41,6 +64,8 @@ nav.liberty-navbar.navbar
             b-icon(icon="caret-down")
           b-dropdown-item(has-link)
             a(href="#") 문법 도움말
+          b-dropdown-item(has-link)          
+            nuxt-link(:to="`/article/${encodeURIComponent('TeX 문법')}`") TeX 문법
       .navbar-end
         .search-box-wrapper
           b-field
@@ -151,6 +176,14 @@ export default {
   }
   .navbar-mobile-buttons {
     margin-left: 0.625rem;
+    display: flex;
+    .navbar-item {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      .fa {
+        font-size: 1rem;
+      }
+    }
     @include desktop {
       display: none;
     }
@@ -158,6 +191,13 @@ export default {
   .navbar-mobile-right-buttons {
     margin-left: auto;
     margin-right: 0;
+    .navbar-item {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+      .fa {
+        font-size: 1rem;
+      }
+    }
     @include desktop {
       display: none;
     }
