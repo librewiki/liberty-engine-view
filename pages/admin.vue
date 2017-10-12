@@ -15,8 +15,11 @@ export default {
   components: {
     AdminMenu
   },
-  asyncData ({ redirect }) {
-    return redirect('/admin/statistics')
+  asyncData ({ store }) {
+    store.commit('meta/clear')
+    store.commit('meta/update', {
+      title: '관리자 페이지'
+    })
   }
 }
 </script>

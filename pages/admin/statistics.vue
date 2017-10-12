@@ -4,12 +4,7 @@
 </template>
 
 <script>
-import AdminMenu from '~/components/AdminMenu'
-
 export default {
-  components: {
-    AdminMenu
-  },
   async asyncData ({ params, req, res, error, store, redirect }) {
     store.commit('meta/clear')
     store.commit('meta/update', {
