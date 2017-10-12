@@ -160,6 +160,7 @@ export default {
     margin-right: 1rem;
     @include touch {
       margin-left: 0.625rem;
+      min-height: 2.4rem;
     }
     a {
       color: white;
@@ -173,13 +174,15 @@ export default {
   }
   .search-box-wrapper {
     margin-right: 0.3rem;
+    .button:focus {
+      box-shadow: none;
+    }
   }
   .navbar-mobile-buttons {
     margin-left: 0.625rem;
     display: flex;
     .navbar-item {
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
+      padding: 0.25rem;
       .fa {
         font-size: 1rem;
       }
@@ -192,8 +195,7 @@ export default {
     margin-left: auto;
     margin-right: 0;
     .navbar-item {
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
+      padding: 0.25rem;
       .fa {
         font-size: 1rem;
       }
@@ -203,12 +205,11 @@ export default {
     }
   }
   .navbar-mobile-search-row {
-    @include desktop {
-      display: none;
-    }
-    margin-top: -0.3rem;
-    padding-bottom: 0.3rem;
+    padding-bottom: 0.4rem;
     display: flex;
+    * {
+      font-size: 15px;
+    }
     .field {
       justify-content: center;
       flex: 1;
@@ -217,6 +218,9 @@ export default {
     }
     .mobile-search-input {
       flex: 1;
+    }
+    @include desktop {
+      display: none;
     }
   }
   .navbar-search-input,
