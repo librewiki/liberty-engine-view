@@ -17,6 +17,8 @@
       rows="15"
     )
   wiki-html(v-else class="preview-box" :html="previewHtml")
+  b-field(label="편집 요약")
+    b-input(v-model.trim="model.summary")
   .right-wrapper
     button.button.is-primary(@click="submit") 저장
 </template>
@@ -106,7 +108,11 @@ export default {
       modeSwitch: 0,
       drafts: [],
       previewHtml: '',
-      errorMessage: null
+      errorMessage: null,
+      model: {
+        wikitext: '',
+        summary: ''
+      }
     }
   },
   methods: {
