@@ -22,7 +22,11 @@ export default {
   },
   head () {
     return {
-      title: this.error.message || '에러가 발생했습니다.'
+      title: this.error.message || '에러가 발생했습니다.',
+      titleTemplate: `%s - ${this.settings.data.wikiName}`,
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: `/media/${this.settings.data.favicon.filename}` }
+      ]
     }
   }
 }

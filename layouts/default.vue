@@ -17,7 +17,10 @@ export default {
   head () {
     return {
       title: this.meta.title || '',
-      titleTemplate: `%s - ${this.settings.data.wikiName}`
+      titleTemplate: `%s - ${this.settings.data.wikiName}`,
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: `/media/${this.settings.data.favicon.filename}` }
+      ]
     }
   }
 }

@@ -10,7 +10,6 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'LibertyEngine view' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha/katex.min.css',

@@ -4,6 +4,15 @@
     b-input(v-model="model.wikiName")
   b-field(label="첫 페이지")
     b-input(v-model="model.frontPage")
+  b-field(label="Favicon")
+  b-field(grouped)
+    b-input(v-model="faviconSearchText" @keyup.native.enter="searchFavicon")
+    p.control
+      button.button.is-primary(@click="searchFavicon") 찾기
+  b-field(message="업로드 도구를 이용해 업로드한 favicon 파일의 제목을 입력해 주세요. (네임스페이스 제외)")
+  p
+    span {{ model.faviconFilename }}
+    b-icon(icon="times" v-if="model.faviconFilename" @click.native="model.faviconFilename = ''")
   .right-wrapper
     button.button.is-primary(@click="submit") 저장
 </template>
@@ -22,11 +31,13 @@ export default {
       method: 'get'
     })
     return {
+      faviconSearchText: '',
       original: {
         ...resp.data.settings
       },
       model: {
-        ...resp.data.settings
+        ...resp.data.settings,
+        faviconFilename: ''
       }
     }
   },
@@ -51,6 +62,14 @@ export default {
         })
       }
       history.go(0)
+    },
+    async searchFavicon () {
+      if (!this.faviconSearchText) return
+      const resp = await request({
+        method: 'get',
+        path: `media-files/${encodeURIComponent(this.faviconSearchText)}`
+      })
+      this.model.faviconFilename = resp.data.mediaFile.filename
     }
   }
 }
