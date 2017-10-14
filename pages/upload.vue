@@ -7,7 +7,7 @@
         b-field
           b-upload(
             v-model="model.files"
-            accept="image/jpeg, image/png, image/gif"
+            accept="image/jpeg, image/png, image/gif, image/x-icon"
             drag-drop
           )
             section.section
@@ -16,7 +16,7 @@
                   b-icon(icon="upload" size="is-large").is-size-4
                 div 파일을 선택하거나 드래그
                 div 최대 크기: 10 MiB
-                div 현재 png, jpg, gif 파일만 지원합니다.
+                div 현재 png, jpg, gif, ico 파일만 지원합니다.
     .column(v-if="selectedFile")
       section.file-info
         h3.is-size-3 파일 정보
