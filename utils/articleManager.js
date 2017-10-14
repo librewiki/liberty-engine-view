@@ -39,12 +39,13 @@ export default {
       }
     })
   },
-  async rename ({ fullTitle, newFullTitle }) {
+  async rename ({ fullTitle, newFullTitle, summary }) {
     await request({
       path: `articles/${encodeURIComponent(fullTitle)}/full-title`,
       method: 'put',
       body: {
-        fullTitle: newFullTitle
+        fullTitle: newFullTitle,
+        summary
       }
     })
   },
