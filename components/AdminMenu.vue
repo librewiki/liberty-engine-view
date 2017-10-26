@@ -8,6 +8,8 @@ aside.menu
   ul.menu-list
     li
       nuxt-link(to="/admin/general") 일반 설정
+    li
+      nuxt-link(to="/admin/block") 차단      
 </template>
 
 <script>

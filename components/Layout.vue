@@ -4,6 +4,7 @@
   .main-container.container
     .columns.main-columns
       .column.main-column
+        block-notice
         site-notice
         article.box.is-paddingless
           header.main-header
@@ -34,11 +35,13 @@ import Navbar from '~/components/Navbar'
 import ToolBox from '~/components/ToolBox'
 import LibertyFooter from '~/components/LibertyFooter'
 import SiteNotice from '~/components/SiteNotice'
+import BlockNotice from '~/components/BlockNotice'
 import LiveRecent from '~/components/LiveRecent'
 
 export default {
   components: {
     SiteNotice,
+    BlockNotice,
     Navbar,
     ToolBox,
     LibertyFooter,

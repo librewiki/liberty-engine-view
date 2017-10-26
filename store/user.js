@@ -21,7 +21,10 @@ export const state = () => ({
   username: null,
   email: null,
   roles: [],
-  isAdmin: false
+  isAdmin: false,
+  isBlockedUser: false,
+  isBlockedIp: false,
+  reasonOfBlock: null
 })
 
 const errorMessages = {
@@ -30,6 +33,9 @@ const errorMessages = {
 }
 
 export const mutations = {
+  block (state, isBlockedIp) {
+    state.isBlockedIp = isBlockedIp
+  },
   loginStart (state) {
     state.pending = true
   },
@@ -42,6 +48,7 @@ export const mutations = {
     state.email = decodedToken.email
     state.roles = decodedToken.roles
     state.isAdmin = decodedToken.isAdmin
+    state.isBlockedUser = decodedToken.isBlockedUser
   },
   loginFailure (state, errorType) {
     state.pending = false
@@ -52,6 +59,7 @@ export const mutations = {
     state.email = null
     state.roles = []
     state.isAdmin = false
+    state.isBlockedUser = false
   },
   logoutSuccess (state) {
     state.pending = false
@@ -62,6 +70,7 @@ export const mutations = {
     state.email = null
     state.roles = []
     state.isAdmin = false
+    state.isBlockedUser = false
   }
 }
 
@@ -92,7 +101,7 @@ export const actions = {
     commit('logoutSuccess')
     history.go(0)
   },
-  initialize ({ commit }, { req, res, isServer }) {
+  async initialize ({ commit }, { req, res, isServer }) {
     try {
       if (isServer) {
         if (!req) return
@@ -116,6 +125,11 @@ export const actions = {
         }
         commit('loginSuccess', decoded)
       }
+      const resp = await request({
+        method: 'get',
+        path: 'block/check'
+      })
+      commit('block', resp.data.isBlockedIp)
     } catch (e) {
       unsetToken()
       commit('logoutSuccess')
