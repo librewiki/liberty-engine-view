@@ -127,7 +127,9 @@ export const actions = {
       }
       const resp = await request({
         method: 'get',
-        path: 'block/check'
+        path: 'block/check',
+        req,
+        res
       })
       commit('block', resp.data.isBlockedIp)
     } catch (e) {
