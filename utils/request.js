@@ -14,6 +14,8 @@ async function request ({
 }) {
   const headers = {}
   if (process.server && req) {
+    const xff = req.headers['x-forwarded-for']
+    headers['X-Forwarded-For'] = xff ? `${xff}, ${req.connection.remoteAddress}` : req.connection.remoteAddress
     if (req.headers.cookie) {
       const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
       if (jwtCookie) {
