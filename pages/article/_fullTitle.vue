@@ -22,7 +22,7 @@ export default {
     WikiHtml,
     CategoryTree
   },
-  async asyncData ({ params, query, req, res, error, store }) {
+  async asyncData ({ params, query, req, res, error, store, redirect }) {
     store.commit('meta/clear')
     const fullTitle = params.fullTitle
     const redirectedFrom = query.redirectedFrom || undefined
@@ -31,6 +31,15 @@ export default {
       redirectedFrom: redirectedFrom
     })
     try {
+      const resp = await request({
+        method: 'get',
+        path: `search/article-case-insensitive-with-redirection/${encodeURIComponent(params.fullTitle)}`,
+        req,
+        res
+      })
+      if (resp.data.type === 'REDIRECTION') {
+        return redirect(301, `/article/${encodeURIComponent(resp.data.fullTitle)}?redirectedFrom=${encodeURIComponent(params.fullTitle)}`)
+      }
       const article = await articleManager.getByFullTitle(fullTitle, {
         revisionId: Number(query.rev) || undefined,
         fields: [
