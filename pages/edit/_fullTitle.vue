@@ -56,7 +56,9 @@ export default {
       let oldRevision
       if (query.rev) {
         oldRevision = await articleManager.getRevision({
-          id: Number(query.rev)
+          id: Number(query.rev),
+          req,
+          res
         })
       }
       store.commit('meta/update', {

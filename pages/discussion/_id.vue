@@ -41,7 +41,9 @@ export default {
     try {
       const resp = await request({
         method: 'get',
-        path: `discussion-topics/${params.id}`
+        path: `discussion-topics/${params.id}`,
+        req,
+        res
       })
       const discussionTopic = resp.data.discussionTopic
       const fullTitle = discussionTopic.article.fullTitle

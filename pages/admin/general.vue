@@ -28,7 +28,9 @@ export default {
     })
     const resp = await request({
       path: `settings`,
-      method: 'get'
+      method: 'get',
+      req,
+      res
     })
     return {
       faviconSearchText: '',
@@ -74,6 +76,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css">
-</style>

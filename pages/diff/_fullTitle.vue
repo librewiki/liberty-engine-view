@@ -33,10 +33,14 @@ export default {
       })
       const [oldRevision, newRevision] = await Promise.all([
         articleManager.getRevision({
-          id: Number(query.old)
+          id: Number(query.old),
+          req,
+          res
         }),
         articleManager.getRevision({
-          id: Number(query.new)
+          id: Number(query.new),
+          req,
+          res
         })
       ])
       const diffHtml = Diff2Html.getPrettySideBySideHtmlFromDiff(
@@ -70,6 +74,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-</style>
