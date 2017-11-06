@@ -13,6 +13,11 @@
   p
     span {{ model.faviconFilename }}
     b-icon(icon="times" v-if="model.faviconFilename" @click.native="model.faviconFilename = ''")
+  b-field(label="공지사항")
+    b-input(
+      v-model="model.siteNoticeWikitext"
+      type="textarea"
+    )
   .right-wrapper
     button.button.is-primary(@click="submit") 저장
 </template>
@@ -60,6 +65,15 @@ export default {
           method: 'put',
           body: {
             frontPage: this.model.frontPage
+          }
+        })
+      }
+      if (this.original.siteNoticeWikitext !== this.model.siteNoticeWikitext) {
+        await request({
+          path: `settings/site-notice`,
+          method: 'put',
+          body: {
+            wikitext: this.model.siteNoticeWikitext
           }
         })
       }
