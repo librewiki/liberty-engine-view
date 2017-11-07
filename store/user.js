@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 const setToken = (token) => {
   if (process.SERVER_BUILD) return
-  Cookies.set('jwt', token)
+  Cookies.set('jwt', token, { path: '/' })
 }
 
 const unsetToken = () => {
