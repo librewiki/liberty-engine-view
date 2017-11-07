@@ -43,7 +43,7 @@ export default {
           fullTitle: article.fullTitle
         }
       })
-      if (!article.allowedActions.includes('article:rename')) {
+      if (!article.allowedActions.includes('rename')) {
         return error({ statusCode: 403, message: '이 문서의 문서명을 변경할 권한이 없습니다.' })
       }
       return {

@@ -1,14 +1,14 @@
 <template lang="pug">
 .tool-box
   .tabs.is-toggle
-    ul(v-if="allowedActions.includes('article:read')")
+    ul(v-if="allowedActions.includes('read')")
       nuxt-link(
         tag="li"
         :to="`/article/${encodedFullTitle}`"
       )
         a 읽기
       nuxt-link(
-        v-if="allowedActions.includes('article:edit')"
+        v-if="allowedActions.includes('edit')"
         tag="li"
         :to="`/edit/${encodedFullTitle}`"
       )
@@ -20,13 +20,13 @@
       )
         a 원본 보기
       nuxt-link(
-        v-if="allowedActions.includes('discussion:read')"
+        v-if="allowedActions.includes('read-discussion')"
         tag="li"
         :to="`/topics/${encodedFullTitle}`"
       )
         a 토의
       nuxt-link(
-        v-if="allowedActions.includes('article:read')"
+        v-if="allowedActions.includes('read')"
         tag="li"
         :to="`/history/${encodedFullTitle}`"
       )
@@ -39,8 +39,8 @@
     b-dropdown-item(:has-link="true")
       nuxt-link(:to="`/redirections/${encodedFullTitle}`") 넘겨주기
     b-dropdown-item(:has-link="true")
-      nuxt-link(v-if="allowedActions.includes('article:rename')" :to="`/rename/${encodedFullTitle}`") 문서명 변경
-    b-dropdown-item(v-if="allowedActions.includes('article:delete')" :has-link="true")
+      nuxt-link(v-if="allowedActions.includes('rename')" :to="`/rename/${encodedFullTitle}`") 문서명 변경
+    b-dropdown-item(v-if="allowedActions.includes('delete')" :has-link="true")
       nuxt-link.has-text-danger(:to="`/delete/${encodedFullTitle}`") 삭제
 </template>
 

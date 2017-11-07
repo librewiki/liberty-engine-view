@@ -52,7 +52,7 @@ export default {
         req,
         res
       })
-      const isEditable = article.allowedActions.includes('article:edit')
+      const isEditable = article.allowedActions.includes('edit')
       let oldRevision
       if (query.rev) {
         oldRevision = await articleManager.getRevision({
@@ -86,7 +86,7 @@ export default {
         store.commit('meta/update', {
           title: `"${fullTitle}" 문서 만들기`,
           toolBox: {
-            allowedActions: ['article:read', 'article:edit'],
+            allowedActions: ['read', 'edit'],
             fullTitle: fullTitle
           }
         })
