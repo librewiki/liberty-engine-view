@@ -73,6 +73,13 @@ export default {
       method: 'delete'
     })
   },
+  async setPermissions ({ fullTitle, permissions }) {
+    await request({
+      path: `articles/${encodeURIComponent(fullTitle)}/permissions`,
+      method: 'put',
+      body: { permissions }
+    })
+  },
   async getRevision ({ id, req, res }) {
     const resp = await request({
       path: `revisions/${id}`,

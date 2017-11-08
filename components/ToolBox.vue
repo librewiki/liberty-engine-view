@@ -40,6 +40,8 @@
       nuxt-link(:to="`/redirections/${encodedFullTitle}`") 넘겨주기
     b-dropdown-item(:has-link="true")
       nuxt-link(v-if="allowedActions.includes('rename')" :to="`/rename/${encodedFullTitle}`") 문서명 변경
+    b-dropdown-item(v-if="allowedActions.includes('set-permission')" :has-link="true")
+      nuxt-link(:to="`/permission/${encodedFullTitle}`") 문서 권한 설정
     b-dropdown-item(v-if="allowedActions.includes('delete')" :has-link="true")
       nuxt-link.has-text-danger(:to="`/delete/${encodedFullTitle}`") 삭제
 </template>
