@@ -21,6 +21,8 @@ nav.liberty-navbar.navbar
             nuxt-link(to="/admin") 관리자 도구
           b-dropdown-item(has-link)
             nuxt-link(to="/upload") 파일 업로드
+          b-dropdown-item(has-link)
+            nuxt-link(to="/log/block") 차단 기록
         b-dropdown
           a.navbar-item(slot="trigger")
             b-icon(icon="book")

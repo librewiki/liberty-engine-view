@@ -127,7 +127,7 @@ export const actions = {
       }
       const resp = await request({
         method: 'get',
-        path: 'block/check',
+        path: 'blocks/check',
         req,
         res
       })
