@@ -1,7 +1,10 @@
 <template lang="pug">
 .admin-unblock
   b-field(label="검색" @keyup.native.enter="search" message="차단 범위에 속하는 아이피 주소 하나를 입력해 주세요.")
-    b-input(v-model="model.ipToSearch")
+    b-input(
+      v-model="model.ipToSearch"
+      icon="search"
+    )
   button.button.is-primary(@click="search") 찾기
   template(v-if="blocks !== null")
     b-table(:data="blocks")
