@@ -9,7 +9,7 @@ const setToken = (token) => {
 
 const unsetToken = () => {
   if (process.SERVER_BUILD) return
-  Cookies.remove('jwt')
+  Cookies.remove('jwt', { path: '/' })
 }
 
 export const state = () => ({
