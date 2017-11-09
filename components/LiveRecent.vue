@@ -35,7 +35,11 @@ export default {
         if (this.mode === 'ARTICLE') {
           const resp = await request({
             method: 'get',
-            path: 'articles?limit=10&order=updatedAt'
+            path: 'articles',
+            query: {
+              limit: 10,
+              order: 'updatedAt'
+            }
           })
           this.items = resp.data.articles.map(article => ({
             key: 'a' + article.id,
@@ -46,7 +50,11 @@ export default {
         } else {
           const resp = await request({
             method: 'get',
-            path: 'discussion-topics?limit=10&order=updatedAt'
+            path: 'discussion-topics',
+            query: {
+              limit: 10,
+              order: 'updatedAt'
+            }
           })
           this.items = resp.data.discussionTopics.map(topic => ({
             key: 't' + topic.id,

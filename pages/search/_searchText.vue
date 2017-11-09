@@ -45,7 +45,10 @@ export default {
       }
     }
     const resp = await request({
-      path: `search/articles?q=${encodeURIComponent(searchText)}`,
+      path: `search/articles`,
+      query: {
+        q: searchText
+      },
       req,
       res
     })

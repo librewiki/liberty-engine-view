@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
+import qs from 'qs'
 
 const serverSideApiPath = 'http://localhost:3001'
 const clientSideApiPath = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001'
@@ -71,10 +72,14 @@ async function request ({
   path,
   version = 1,
   method = 'get',
+  query,
   body,
   req,
   res
 }) {
+  if (query) {
+    path += '?' + qs.stringify(query)
+  }
   if (process.server) {
     if (!req || !res) {
       throw new Error('Must pass req and res')

@@ -8,7 +8,11 @@ export default {
   async asyncData ({ redirect, req, res }) {
     const resp = await request({
       method: 'get',
-      path: 'articles?random=true&limit=1',
+      path: 'articles',
+      query: {
+        random: true,
+        limit: 1
+      },
       req,
       res
     })

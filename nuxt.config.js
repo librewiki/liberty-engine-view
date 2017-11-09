@@ -26,7 +26,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['babel-polyfill', 'buefy', 'axios', 'validator', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
+    vendor: ['babel-polyfill', 'buefy', 'axios', 'validator', 'qs', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
     /*
     ** Run ESLINT on save
     */

@@ -55,7 +55,10 @@ export default {
       })
       const resp = await request({
         method: 'get',
-        path: `links?to=${encodeURIComponent(article.fullTitle)}`,
+        path: `links`,
+        query: {
+          to: article.fullTitle
+        },
         req,
         res
       })
