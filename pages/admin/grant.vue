@@ -11,7 +11,10 @@
     button.button.is-primary(@click="search") 찾기
   section.section-form(v-if="targetUser")
     .field(v-for="role in model.roles")
-      b-checkbox(v-model="role.checked") {{ role.name }}
+      b-checkbox(
+        v-model="role.checked"
+        :disabled="role.id === 2 || role.id === 3"
+      ) {{ role.name }}
     button.button.is-primary(@click="submit") 적용
 </template>
 
@@ -62,12 +65,13 @@ export default {
       }
       this.targetUser = targetUser
       this.model.roles = this.roles.map((role) => {
-        const checked = !!targetUser.roles.find(userRole => userRole.id === role.id)
+        const checked = targetUser.roles.some(userRole => userRole.id === role.id)
         return { ...role, checked }
       })
     },
     async submit () {
       const roleIds = this.model.roles.filter(role => role.checked).map(role => role.id)
+      if (roleIds.includes(2) || !roleIds.includes(3)) return // grant anonymous or revoke loggedIn
       await request({
         method: 'put',
         path: `users/${this.targetUser.id}/roles`,
