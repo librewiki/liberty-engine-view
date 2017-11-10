@@ -13,6 +13,8 @@ aside.menu
     li
       nuxt-link(to="/admin/unblock") 차단 해제
     li
+      nuxt-link(to="/admin/role") 역할 관리
+    li
       nuxt-link(to="/admin/grant") 사용자 역할 부여 / 해제
 </template>
 
