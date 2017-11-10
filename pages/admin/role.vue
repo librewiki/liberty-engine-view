@@ -1,34 +1,40 @@
 <template lang="pug">
 .admin-grant
   p 역할(Role)은 권한들의 집합입니다. 역할을 부여받은 사용자는 그 역할에 속한 권한을 가지게 됩니다.
-  b-field(label="권한 선택")
-    b-select(placeholder="편집할 권한을 선택하세요." @input="fetchNamespacePermissions")
-      option(v-for="role in roles" :value="role.id") {{ role.name }}
-  section(v-if="roleId")
-    h3.is-size-3 네임스페이스별 권한
-    p (체크: 허용)
-    b-table(:data="permissionTable")
-      template(scope="props")
-        b-table-column(label="네임스페이스")
-          | {{ props.row.namespaceName }}
-        b-table-column(label="읽기")
-          b-field
-            b-checkbox(v-model="props.row.readable")
-        b-table-column(label="문서 생성")
-          b-field
-            b-checkbox(v-model="props.row.creatable")
-        b-table-column(label="편집")
-          b-field
-            b-checkbox(v-model="props.row.editable")
-        b-table-column(label="이름 변경")
-          b-field
-            b-checkbox(v-model="props.row.renamable")
-        b-table-column(label="삭제")
-          b-field
-            b-checkbox(v-model="props.row.deletable")
-    button.button.is-primary(@click="submitNamespacePermission") 저장
-  //- section(v-if="roleId")
-  //-   h3.is-size-3 특수 권한
+  section
+    h3.is-size-3 새 역할 추가
+    b-field(label="역할 이름")
+      b-input(v-model="newRoleName")
+    button.button.is-primary(@click="submitNewRole") 추가      
+  section
+    h3.is-size-3 권한 편집
+    b-field(label="역할 선택")
+      b-select(placeholder="편집할 역할을 선택하세요." @input="fetchNamespacePermissions")
+        option(v-for="role in roles" :value="role.id") {{ role.name }}
+    section(v-if="roleId")
+      p (체크: 허용)
+      b-table(:data="permissionTable")
+        template(scope="props")
+          b-table-column(label="네임스페이스")
+            | {{ props.row.namespaceName }}
+          b-table-column(label="읽기")
+            b-field
+              b-checkbox(v-model="props.row.readable")
+          b-table-column(label="문서 생성")
+            b-field
+              b-checkbox(v-model="props.row.creatable")
+          b-table-column(label="편집")
+            b-field
+              b-checkbox(v-model="props.row.editable")
+          b-table-column(label="이름 변경")
+            b-field
+              b-checkbox(v-model="props.row.renamable")
+          b-table-column(label="삭제")
+            b-field
+              b-checkbox(v-model="props.row.deletable")
+      button.button.is-primary(@click="submitNamespacePermission") 저장
+    //- section(v-if="roleId")
+    //-   h3.is-size-3 특수 권한
 </template>
 
 <script>
@@ -67,10 +73,19 @@ export default {
   },
   data () {
     return {
-      roleId: null
+      roleId: null,
+      newRoleName: ''
     }
   },
   methods: {
+    async submitNewRole () {
+      await request({
+        path: `roles`,
+        method: 'post',
+        body: { role: { name: this.newRoleName } }
+      })
+      history.go(0)
+    },
     async fetchNamespacePermissions (roleId) {
       this.roleId = roleId
       const { data: { role } } = await request({
