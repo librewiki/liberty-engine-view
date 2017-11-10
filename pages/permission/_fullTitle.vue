@@ -124,7 +124,7 @@ export default {
     async submit () {
       await articleManager.setPermissions({
         fullTitle: this.article.fullTitle,
-        permissions: this.table
+        articlePermissions: this.table
           .map(row => ({
             roleId: row.roleId,
             readable: row.readable,

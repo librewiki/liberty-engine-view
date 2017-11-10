@@ -73,11 +73,11 @@ export default {
       }
     })
   },
-  async setPermissions ({ fullTitle, permissions }) {
+  async setPermissions ({ fullTitle, articlePermissions }) {
     await request({
       path: `articles/${encodeURIComponent(fullTitle)}/permissions`,
       method: 'put',
-      body: { permissions }
+      body: { articlePermissions }
     })
   },
   async getRevision ({ id, req, res }) {
