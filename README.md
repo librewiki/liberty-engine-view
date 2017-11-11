@@ -1,22 +1,7 @@
-# nuxt-liberty
+# liberty-engine-view
+View engine of LibertyEngine made with Vue.js / Nuxt.js.
 
-> LibertyEngine view
-
-## Build Setup
-
+## Development
 ``` bash
-# install dependencies
-$ npm install # Or yarn install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm start
-
-# generate static project
-$ npm run generate
+npm run dev # run dev server
 ```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).

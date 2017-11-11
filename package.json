@@ -1,7 +1,7 @@
 {
-  "name": "nuxt-liberty",
-  "version": "1.0.0",
-  "description": "LibertyEngine view",
+  "name": "liberty-engine-view",
+  "version": "0.0.1",
+  "description": "View engine of LibertyEngine.",
   "author": "nessunkim <nessunkim@gmail.com>",
   "private": true,
   "scripts": {
