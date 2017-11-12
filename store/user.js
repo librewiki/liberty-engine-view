@@ -40,6 +40,7 @@ export const mutations = {
     state.pending = true
   },
   loginSuccess (state, decodedToken) {
+    state.isInitialized = true
     state.pending = false
     state.isLoggedIn = true
     state.errorMessage = null
@@ -51,6 +52,7 @@ export const mutations = {
     state.isBlockedUser = decodedToken.isBlockedUser
   },
   loginFailure (state, errorType) {
+    state.isInitialized = true
     state.pending = false
     state.isLoggedIn = false
     state.errorMessage = errorMessages[errorType] || '로그인 시도 중 오류가 발생했습니다.'
@@ -62,6 +64,7 @@ export const mutations = {
     state.isBlockedUser = false
   },
   logoutSuccess (state) {
+    state.isInitialized = true
     state.pending = false
     state.isLoggedIn = false
     state.errorMessage = null

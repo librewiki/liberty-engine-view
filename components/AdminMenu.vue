@@ -9,6 +9,8 @@ aside.menu
     li
       nuxt-link(to="/admin/general") 일반 설정
     li
+      nuxt-link(to="/admin/email") 이메일 설정
+    li
       nuxt-link(to="/admin/ip-block") 아이피 차단
     li
       nuxt-link(to="/admin/unblock") 차단 해제
