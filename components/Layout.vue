@@ -103,6 +103,7 @@ a.external {
   }
   .main-column {
     @include touch {
+      padding-top: 0;
       padding-left: 0;
       padding-right: 0;
     }
