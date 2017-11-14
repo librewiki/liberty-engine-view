@@ -1,7 +1,7 @@
 <template lang="pug">
 .page.page-recent-changes
   ul.recent-changes-list
-    li(v-for="revision in recentChanges" :key="revision.id")
+    li.recent-change-row(v-for="revision in recentChanges" :key="revision.id")
       nuxt-link.full-title(:to="`/article/${encodeURIComponent(revision.articleFullTitle)}`")
         | {{ revision.articleFullTitle }}
       span.changed-at
@@ -38,10 +38,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~assets/style-variables.scss';
+
 .page-recent-changes {
   .recent-changes-list {
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+  .recent-change-row {
+    border-bottom: 1px solid $border;
+    padding: 0.5rem 0;
   }
   .invisible {
     visibility: hidden;

@@ -146,6 +146,7 @@ a.external {
     }
   }
   .main-content {
+    word-wrap: break-word;
     padding: $box-padding;
     @include touch {
       padding: ($box-padding / 2);
