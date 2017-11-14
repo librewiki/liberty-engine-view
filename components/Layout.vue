@@ -121,10 +121,8 @@ a.external {
     border-top-right-radius: $radius-large;
     background-color: $background;
     .title-wrapper-row {
-      .level-left {
-        flex-shrink: 1;
-      }
       .level-left > .level-item {
+        flex-shrink: 1;
         flex-direction: column;
         align-items: flex-start;
       }
