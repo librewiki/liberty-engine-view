@@ -102,6 +102,7 @@ a.external {
     }
   }
   .main-column {
+    overflow-y: hidden;
     @include touch {
       padding-top: 0;
       padding-left: 0;
