@@ -9,7 +9,7 @@
   section
     h3.is-size-3 권한 편집
     b-field(label="역할 선택")
-      b-select(placeholder="편집할 역할을 선택하세요." @input="fetchNamespacePermissions")
+      b-select(placeholder="편집할 역할을 선택하세요." @input="fetchRole")
         option(v-for="role in roles" :value="role.id") {{ role.name }}
     section(v-if="roleId")
       p (체크: 허용)
@@ -33,8 +33,11 @@
             b-field
               b-checkbox(v-model="props.row.deletable")
       button.button.is-primary(@click="submitNamespacePermission") 저장
-    //- section(v-if="roleId")
-    //-   h3.is-size-3 특수 권한
+    section(v-if="roleId")
+      h3.is-size-3 특수 권한
+      b-field(v-for="(value, key) in specialPermissions" :key="key")
+        b-checkbox(v-model="specialPermissions[key]") {{ key }}
+      button.button.is-primary(@click="submitSpecialPermission") 저장      
 </template>
 
 <script>
@@ -46,18 +49,30 @@ export default {
     store.commit('meta/update', {
       title: '관리자 페이지 - 역할 관리'
     })
-    const { data: { roles } } = await request({
-      method: 'get',
-      path: 'roles',
-      req,
-      res
-    })
-    const { data: { namespaces } } = await request({
-      method: 'get',
-      path: 'namespaces',
-      req,
-      res
-    })
+    const [
+      { data: { roles } },
+      { data: { namespaces } },
+      { data: { specialPermissions } }
+    ] = await Promise.all([
+      request({
+        method: 'get',
+        path: 'roles',
+        req,
+        res
+      }),
+      request({
+        method: 'get',
+        path: 'namespaces',
+        req,
+        res
+      }),
+      request({
+        method: 'get',
+        path: 'special-permissions',
+        req,
+        res
+      })
+    ])
     const permissionTable = namespaces.map((namespace) => {
       return {
         namespaceId: namespace.id,
@@ -69,7 +84,11 @@ export default {
         deletable: false
       }
     })
-    return { roles, namespaces, permissionTable }
+    const specialPermissionsObj = specialPermissions.reduce((obj, key) => {
+      obj[key] = false
+      return obj
+    }, {})
+    return { roles, namespaces, permissionTable, specialPermissions: specialPermissionsObj }
   },
   data () {
     return {
@@ -86,7 +105,7 @@ export default {
       })
       history.go(0)
     },
-    async fetchNamespacePermissions (roleId) {
+    async fetchRole (roleId) {
       this.roleId = roleId
       const { data: { role } } = await request({
         method: 'get',
@@ -103,6 +122,9 @@ export default {
           deletable: false
         }
       })
+      for (const key of Object.keys(this.specialPermissions)) {
+        this.specialPermissions[key] = false
+      }
       role.namespacePermissions.forEach((p) => {
         const permissionRow = this.permissionTable.find(row => row.namespaceId === p.namespaceId)
         permissionRow.readable = p.readable
@@ -110,6 +132,9 @@ export default {
         permissionRow.editable = p.editable
         permissionRow.renamable = p.renamable
         permissionRow.deletable = p.deletable
+      })
+      role.specialPermissions.forEach((p) => {
+        this.specialPermissions[p.name] = true
       })
     },
     async submitNamespacePermission () {
@@ -123,10 +148,23 @@ export default {
         message: '완료되었습니다.',
         type: 'is-success'
       })
-      this.fetchNamespacePermissions(this.roleId)
+      this.fetchRole(this.roleId)
     },
     async submitSpecialPermission () {
-
+      const specialPermissions = Object.keys(this.specialPermissions)
+        .map(key => this.specialPermissions[key] === true ? key : null)
+        .filter(x => !!x)
+      await request({
+        path: `roles/${this.roleId}/special-permissions`,
+        method: 'put',
+        body: { specialPermissions }
+      })
+      this.$toast.open({
+        duration: 3000,
+        message: '완료되었습니다.',
+        type: 'is-success'
+      })
+      this.fetchRole(this.roleId)
     }
   }
 }
