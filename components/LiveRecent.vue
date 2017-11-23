@@ -41,12 +41,20 @@ export default {
               order: 'updatedAt'
             }
           })
-          this.items = resp.data.articles.map(article => ({
-            key: 'a' + article.id,
-            timeString: this.$moment(article.updatedAt).format('HH[:]mm[:]ss'),
-            text: article.fullTitle,
-            to: `/article/${encodeURIComponent(article.fullTitle)}`
-          }))
+          this.items = resp.data.articles.map(article => {
+            let timeString
+            if (this.$moment(article.updatedAt) < this.$moment().subtract(1, 'day')) {
+              timeString = this.$moment(article.updatedAt).fromNow()
+            } else {
+              timeString = this.$moment(article.updatedAt).format('HH[:]mm[:]ss')
+            }
+            return {
+              key: 'a' + article.id,
+              timeString,
+              text: article.fullTitle,
+              to: `/article/${encodeURIComponent(article.fullTitle)}`
+            }
+          })
         } else {
           const resp = await request({
             method: 'get',
