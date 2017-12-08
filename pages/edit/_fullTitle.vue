@@ -85,15 +85,12 @@ export default {
       if (err.response.status === 404) {
         store.commit('meta/update', {
           title: `"${fullTitle}" 문서 만들기`,
-          toolBox: {
-            allowedActions: ['read', 'edit'],
-            fullTitle: fullTitle
-          }
+          toolBox: null
         })
         return {
           new: true,
           fullTitle,
-          isEditable: true, /* @TODO namespace permission check */
+          isEditable: err.response.data.isCreatable,
           usingOldRev: false,
           model: {
             wikitext: ''
