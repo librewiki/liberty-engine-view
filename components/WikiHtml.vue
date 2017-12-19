@@ -181,6 +181,10 @@ export default {
   	float: right;
   }
 
+  .embed-video {
+    max-width: 100%;
+  }
+
   table.wikitable,
   table.infobox {
   	width: auto;
