@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wiki-content(v-html="html" @click="handleInternalLink")
+.wiki-content(v-html="html" @click="handleInternalLink")
 </template>
 
 <script>
@@ -32,6 +32,25 @@ export default {
         }
       }
     }
+  },
+  mounted () {
+    const toc = this.$el.querySelector('.toc')
+    if (!toc) return
+    const tocTitle = toc.querySelector('.toc-title')
+    const tocList = toc.querySelector('.toc>ul')
+    const tocToggle = document.createElement('span')
+    tocToggle.innerHTML = `&nbsp;[<a role="button" class="toc-toggle-link">숨기기</a>]&nbsp;`
+    tocToggle.className = 'toc-toggle'
+    tocToggle.addEventListener('click', function () {
+      if (tocList.style.display === 'none') {
+        tocToggle.innerHTML = `&nbsp;[<a role="button" class="toc-toggle-link">숨기기</a>]&nbsp;`
+        tocList.style.display = ''
+      } else {
+        tocList.style.display = 'none'
+        tocToggle.innerHTML = `&nbsp;[<a role="button" class="toc-toggle-link">보이기</a>]&nbsp;`
+      }
+    })
+    tocTitle.appendChild(tocToggle)
   }
 }
 </script>
