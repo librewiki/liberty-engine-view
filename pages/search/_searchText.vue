@@ -40,7 +40,7 @@ export default {
       })
       titleMatched = article.fullTitle
     } catch (err) {
-      if (!err.response || err.response.data.name !== 'ResourceNotFoundError') {
+      if (!err.response) {
         return error({ statusCode: 500 })
       }
     }
