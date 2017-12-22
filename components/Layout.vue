@@ -15,7 +15,7 @@
                   .meta-info(v-if="meta.redirectedFrom || meta.oldRevision")
                     .redirected-from(v-if="meta.redirectedFrom")
                       | (
-                      nuxt-link(:to="`/article/${encodeURIComponent(meta.redirectedFrom)}`") {{ meta.redirectedFrom }}
+                      nuxt-link(:to="`/redirections/${encodeURIComponent(meta.title)}`") {{ meta.redirectedFrom }}
                       | 에서 넘어옴)
                     .old-revision(v-if="meta.oldRevision")
                       | {{ $moment(meta.oldRevision.createdAt).format('LLLL') }} 판
