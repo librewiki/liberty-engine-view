@@ -9,6 +9,17 @@
   b-tabs.editor-switch(type="is-boxed" v-model="modeSwitch")
     b-tab-item(label="편집")
     b-tab-item(label="미리보기")
+  nav.navbar.is-transparent.editor-tools(v-if="modeSwitch === 0")
+    .navbar-menu
+      .navbar-start
+        a.navbar-item.editor-tools-item(@click="saveDraft")
+          | 임시저장
+        b-dropdown
+          a.navbar-item.editor-tools-item(slot="trigger" @click="loadDrafts")
+            | 불러오기
+            b-icon(icon="caret-down")
+          b-dropdown-item(has-link v-for="(draft, i) in drafts" key="draft.dateTime")
+            a(@click="loadDraft(i)") {{ $moment(draft.dateTime).format('LLLL') }}
   b-field.editor-input(v-if="modeSwitch === 0")
     b-input(
       type="textarea"
@@ -115,8 +126,22 @@ export default {
     }
   },
   methods: {
+    saveDraft () {
+      const drafts = JSON.parse(localStorage.getItem('drafts')) || []
+      drafts.unshift({
+        wikitext: this.model.wikitext,
+        dateTime: new Date()
+      })
+      drafts.length = drafts.length > 30 ? 30 : drafts.length
+      localStorage.setItem('drafts', JSON.stringify(drafts))
+    },
     loadDrafts () {
       this.drafts = JSON.parse(localStorage.getItem('drafts')) || []
+    },
+    loadDraft (i) {
+      const drafts = JSON.parse(localStorage.getItem('drafts')) || []
+      if (!drafts[i]) return
+      this.model.wikitext = drafts[i].wikitext
     },
     async fetchPreview () {
       const resp = await request({ method: 'post', path: 'preview', body: { wikitext: this.model.wikitext } })
@@ -171,6 +196,22 @@ export default {
 .page-edit {
   .editor-switch {
     margin-bottom: 0;
+  }
+  .editor-tools {
+    background-color: $background;
+    border-left: 1px solid $border;
+    border-right: 1px solid $border;
+    border-bottom: 1px solid $border;
+    min-height: 1rem;
+  }
+  .editor-tools-item {
+    padding: 0.4rem 1rem;
+    &,
+    &:focus,
+    &:active,
+    &:hover {
+      color: #4a4a4a;
+    }
   }
   .editor-input {
     textarea {
