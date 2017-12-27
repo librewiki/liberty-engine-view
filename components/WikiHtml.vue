@@ -115,6 +115,7 @@ export default {
 
   ol {
     margin: 0.3em 0 0 3.2em;
+    list-style-image: none;
   }
 
   ul {
