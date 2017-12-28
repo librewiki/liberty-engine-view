@@ -40,9 +40,6 @@ export default {
           username: this.model.username,
           password: this.model.password
         })
-        if (this.user.isLoggedIn) {
-          this.$router.push(`/article/${encodeURIComponent('사용자:' + this.user.username)}`)
-        }
       } catch (err) {
         this.$toast.open({
           duration: 3000,
