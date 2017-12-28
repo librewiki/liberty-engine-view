@@ -196,6 +196,9 @@ export default {
 .page-edit {
   .editor-switch {
     margin-bottom: 0;
+    .tab-content {
+      padding: 0
+    }
   }
   .editor-tools {
     background-color: $background;
