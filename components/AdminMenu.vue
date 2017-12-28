@@ -13,6 +13,8 @@ aside.menu
     li
       nuxt-link(to="/admin/ip-block") 아이피 차단
     li
+      nuxt-link(to="/admin/user-block") 사용자 차단
+    li
       nuxt-link(to="/admin/unblock") 차단 해제
     li
       nuxt-link(to="/admin/role") 역할 관리

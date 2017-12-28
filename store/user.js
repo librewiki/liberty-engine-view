@@ -22,8 +22,7 @@ export const state = () => ({
   email: null,
   roles: [],
   isAdmin: false,
-  isBlockedUser: false,
-  isBlockedIp: false,
+  isBlocked: false,
   reasonOfBlock: null
 })
 
@@ -33,8 +32,8 @@ const errorMessages = {
 }
 
 export const mutations = {
-  block (state, isBlockedIp) {
-    state.isBlockedIp = isBlockedIp
+  block (state, isBlocked) {
+    state.isBlocked = isBlocked
   },
   loginStart (state) {
     state.pending = true
@@ -98,43 +97,47 @@ export const actions = {
         commit('loginFailure')
       }
     }
+    history.go(0)
   },
   logout ({ commit }) {
     unsetToken()
     commit('logoutSuccess')
     history.go(0)
   },
-  async initialize ({ commit }, { req, res, isServer }) {
-    try {
-      if (isServer) {
-        if (!req) return
-        if (!req.headers.cookie) return
-        const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
-        if (!jwtCookie) return
-        const token = jwtCookie.split('=')[1]
-        if (!token) return
-        const decoded = jwtDecode(token)
-        if (!decoded || decoded.exp < Date.now() / 1000) { // if expired
-          return
-        }
-        commit('loginSuccess', decoded)
-      } else {
-        const token = Cookies.get('jwt')
-        if (!token) return
-        const decoded = jwtDecode(token)
-        if (!decoded) return
-        if (decoded.exp < Date.now() / 1000) { // if expired
-          unsetToken()
-        }
-        commit('loginSuccess', decoded)
+  async initializeLogin ({ commit, dispatch }, { req, res, isServer }) {
+    if (isServer) {
+      if (!req) return
+      if (!req.headers.cookie) return
+      const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
+      if (!jwtCookie) return
+      const token = jwtCookie.split('=')[1]
+      if (!token) return
+      const decoded = jwtDecode(token)
+      if (!decoded || decoded.exp < Date.now() / 1000) { // if expired
+        return
       }
-      const resp = await request({
+      commit('loginSuccess', decoded)
+    } else {
+      const token = Cookies.get('jwt')
+      if (!token) return
+      const decoded = jwtDecode(token)
+      if (!decoded) return
+      if (decoded.exp < Date.now() / 1000) { // if expired
+        unsetToken()
+      }
+      commit('loginSuccess', decoded)
+    }
+  },
+  async initialize ({ commit, dispatch }, { req, res, isServer }) {
+    try {
+      await dispatch('initializeLogin', { req, res, isServer })
+      const { data: { isBlocked } } = await request({
         method: 'get',
         path: 'blocks/check',
         req,
         res
       })
-      commit('block', resp.data.isBlockedIp)
+      commit('block', isBlocked)
     } catch (e) {
       unsetToken()
       commit('logoutSuccess')

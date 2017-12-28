@@ -1,6 +1,6 @@
 <template lang="pug">
 b-notification.block-notice(v-if="isVisible" type="is-danger")
-  | 이 아이피는 차단되어 있습니다.
+  | 아이피 또는 사용자가 차단되어 있습니다.
 </template>
 
 <script>
@@ -10,7 +10,7 @@ export default {
   computed: {
     ...mapState(['user']),
     isVisible () {
-      return this.user.isBlockedIp && !['article-fullTitle', 'recent-changes'].includes(this.$route.name)
+      return this.user.isBlocked && !['article-fullTitle', 'recent-changes'].includes(this.$route.name)
     }
   }
 }

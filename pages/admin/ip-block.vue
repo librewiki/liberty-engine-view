@@ -1,5 +1,5 @@
 <template lang="pug">
-.admin-block
+.admin-ip-block
   b-field(label="아이피 주소 범위 시작")
     b-input(v-model="model.ipStart")
   b-field(label="아이피 주소 범위 끝")
