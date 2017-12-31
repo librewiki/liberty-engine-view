@@ -2,11 +2,6 @@ import request from '~/utils/request'
 import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
 
-const setToken = (token) => {
-  if (process.SERVER_BUILD) return
-  Cookies.set('jwt', token, { path: '/' })
-}
-
 const unsetToken = () => {
   if (process.SERVER_BUILD) return
   Cookies.remove('jwt', { path: '/' })
@@ -14,7 +9,6 @@ const unsetToken = () => {
 
 export const state = () => ({
   isInitialized: false,
-  pending: false,
   isLoggedIn: false,
   errorMessage: null,
   id: null,
@@ -35,12 +29,8 @@ export const mutations = {
   block (state, isBlocked) {
     state.isBlocked = isBlocked
   },
-  loginStart (state) {
-    state.pending = true
-  },
   loginSuccess (state, decodedToken) {
     state.isInitialized = true
-    state.pending = false
     state.isLoggedIn = true
     state.errorMessage = null
     state.id = decodedToken.id
@@ -52,7 +42,6 @@ export const mutations = {
   },
   loginFailure (state, errorType) {
     state.isInitialized = true
-    state.pending = false
     state.isLoggedIn = false
     state.errorMessage = errorMessages[errorType] || '로그인 시도 중 오류가 발생했습니다.'
     state.id = null
@@ -64,7 +53,6 @@ export const mutations = {
   },
   logoutSuccess (state) {
     state.isInitialized = true
-    state.pending = false
     state.isLoggedIn = false
     state.errorMessage = null
     state.id = null
@@ -77,33 +65,6 @@ export const mutations = {
 }
 
 export const actions = {
-  async login ({ commit }, { username, password }) {
-    try {
-      commit('loginStart')
-      const resp = await request({
-        method: 'post',
-        path: 'authentication',
-        body: { username, password }
-      })
-      const { token } = resp.data
-      const decoded = jwtDecode(token)
-      setToken(token)
-      commit('loginSuccess', decoded)
-    } catch (err) {
-      unsetToken()
-      if (err.response) {
-        commit('loginFailure', err.response.data.type)
-      } else {
-        commit('loginFailure')
-      }
-    }
-    history.go(0)
-  },
-  logout ({ commit }) {
-    unsetToken()
-    commit('logoutSuccess')
-    history.go(0)
-  },
   async initializeLogin ({ commit, dispatch }, { req, res, isServer }) {
     if (isServer) {
       if (!req) return

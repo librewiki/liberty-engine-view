@@ -98,6 +98,7 @@ nav.liberty-navbar.navbar
 
 <script>
 import { mapState } from 'vuex'
+import Cookies from 'js-cookie'
 
 export default {
   data () {
@@ -122,7 +123,8 @@ export default {
       }
     },
     logout () {
-      this.$store.dispatch('user/logout')
+      Cookies.remove('jwt', { path: '/' })
+      location.reload()
     }
   }
 }

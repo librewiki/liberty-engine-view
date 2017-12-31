@@ -13,10 +13,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import Cookies from 'js-cookie'
+import request from '~/utils/request'
+
+const setToken = (token) => {
+  Cookies.set('jwt', token, { path: '/' })
+}
 
 export default {
-  middleware: ['shouldBeAnonymous'],
-  asyncData ({ store }) {
+  asyncData ({ store, redirect }) {
     store.commit('meta/clear')
     store.commit('meta/update', {
       title: '로그인'
@@ -36,10 +41,13 @@ export default {
   methods: {
     async submit () {
       try {
-        await this.$store.dispatch('user/login', {
-          username: this.model.username,
-          password: this.model.password
+        const { data: { token } } = await request({
+          method: 'post',
+          path: 'authentication',
+          body: { username: this.model.username, password: this.model.password }
         })
+        setToken(token)
+        location.replace('/')
       } catch (err) {
         this.$toast.open({
           duration: 3000,
