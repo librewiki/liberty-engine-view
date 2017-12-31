@@ -24,7 +24,7 @@ export default {
   async asyncData ({ params, req, res, error, store, redirect }) {
     store.commit('meta/clear')
     store.commit('meta/update', {
-      title: '관리자 페이지 - 아이피 차단'
+      title: '관리자 페이지 - 사용자 차단'
     })
   },
   data () {
