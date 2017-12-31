@@ -1,15 +1,15 @@
 <template lang="pug">
 .admin-unblock
-  b-field(label="검색" @keyup.native.enter="search" message="차단 범위에 속하는 아이피 주소 하나를 입력해 주세요.")
-    b-input(
-      v-model="model.ipToSearch"
+  b-field(label="사용자 이름" message="차단을 해제할 사용자 이름을 입력해 주세요.")
+    b-autocomplete(
+      v-model="usernameToSearch"
+      :data="usernameSuggestions"
       icon="search"
     )
   button.button.is-primary(@click="search") 찾기
   template(v-if="blocks !== null")
     b-table(:data="blocks")
       template(scope="props")
-        b-table-column(label="차단 범위") {{ props.row.ipStart }} ~ {{ props.row.ipEnd }}
         b-table-column(label="차단 기한")
           template(v-if="props.row.expiration") {{ $moment(props.row.expiration).format('LLLL') }}
           template(v-else) 무기한
@@ -17,36 +17,41 @@
         b-table-column(label="해제")
           button.button.is-primary(@click="unblock(props.row.id)") 해제  
       template(slot="empty")
-        p 해당 아이피는 차단되어 있지 않습니다. 다시 검색해 주세요.
+        p 해당 사용자는 차단되어 있지 않습니다. 다시 검색해 주세요.
 </template>
 
 <script>
 import request from '~/utils/request'
-import { isIP } from 'validator'
+import _ from 'lodash'
 
 export default {
   async asyncData ({ params, req, res, error, store, redirect }) {
     store.commit('meta/clear')
     store.commit('meta/update', {
-      title: '관리자 페이지 - 차단 해제'
+      title: '관리자 페이지 - 사용자 차단 해제'
     })
   },
   data () {
     return {
-      model: {
-        ipToSearch: ''
-      },
-      ip: null,
+      usernameToSearch: '',
+      usernameSuggestions: [],
+      targetUser: null,
       blocks: null
     }
   },
   methods: {
     async search () {
-      if (this.ip === this.model.ipToSearch) return
-      if (!isIP(this.model.ipToSearch)) {
+      const { data: { users: [targetUser] } } = await request({
+        method: 'get',
+        path: 'users',
+        query: {
+          username: this.usernameToSearch
+        }
+      })
+      if (!targetUser) {
         this.$toast.open({
           duration: 3000,
-          message: '아이피 주소를 올바르게 입력해 주세요.',
+          message: '해당 사용자는 존재하지 않습니다.',
           type: 'is-danger'
         })
         return
@@ -55,11 +60,11 @@ export default {
         path: 'blocks',
         method: 'get',
         query: {
-          containing: this.model.ipToSearch
+          user: targetUser.id
         }
       })
+      this.targetUser = targetUser
       this.blocks = blocks
-      this.ip = this.model.ipToSearch
     },
     async unblock (id) {
       await request({
@@ -70,11 +75,25 @@ export default {
         path: 'blocks',
         method: 'get',
         query: {
-          containing: this.ip
+          user: this.targetUser.id
         }
       })
       this.blocks = blocks
     }
+  },
+  watch: {
+    usernameToSearch: _.debounce(async function () {
+      if (!this.usernameToSearch) return
+      const resp = await request({
+        method: 'get',
+        path: `users`,
+        query: {
+          startingWith: this.usernameToSearch,
+          limit: 20
+        }
+      })
+      this.usernameSuggestions = resp.data.users.map(targetUser => targetUser.username)
+    }, 200)
   }
 }
 </script>

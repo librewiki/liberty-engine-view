@@ -1,8 +1,8 @@
 <template lang="pug">
 .admin-grant
   p 사용자에게 특정한 역할을 부여하거나 해제할 수 있습니다.
-  section.section-search
-    b-field(label="사용자 검색" @keyup.native.enter="search" message="역할을 설정할 사용자명을 입력해 주세요.")
+  section.section-search(@keyup.enter="search")
+    b-field(label="사용자 검색" message="역할을 설정할 사용자 이름을 입력해 주세요.")
       b-autocomplete(
         v-model="usernameToSearch"
         :data="usernameSuggestions"
@@ -58,7 +58,7 @@ export default {
       if (!targetUser) {
         this.$toast.open({
           duration: 3000,
-          message: '해당 유저는 존재하지 않습니다.',
+          message: '해당 사용자는 존재하지 않습니다.',
           type: 'is-danger'
         })
         return
