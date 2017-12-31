@@ -60,7 +60,7 @@ export default {
         path: 'blocks',
         method: 'get',
         query: {
-          user: targetUser.id
+          userId: targetUser.id
         }
       })
       this.targetUser = targetUser
