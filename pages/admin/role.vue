@@ -14,7 +14,7 @@
     section(v-if="roleId")
       p (체크: 허용)
       b-table(:data="permissionTable")
-        template(scope="props")
+        template(slot-scope="props")
           b-table-column(label="네임스페이스")
             | {{ props.row.namespaceName }}
           b-table-column(label="읽기")

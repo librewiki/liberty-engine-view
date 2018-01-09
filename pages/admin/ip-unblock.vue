@@ -9,7 +9,7 @@
     button.button.is-primary(@click="search") 찾기
   section.section-form(v-if="blocks")
     b-table(:data="blocks")
-      template(scope="props")
+      template(slot-scope="props")
         b-table-column(label="차단 범위") {{ props.row.ipStart }} ~ {{ props.row.ipEnd }}
         b-table-column(label="차단 기한")
           template(v-if="props.row.expiration") {{ $moment(props.row.expiration).format('LLLL') }}

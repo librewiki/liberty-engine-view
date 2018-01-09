@@ -4,7 +4,7 @@
     | 특정한 역할을 가진 사용자에게 이 문서에 관한 권한을 부여할 수 있습니다.
     | 기본값으로 설정한 경우 네임스페이스별 설정에 따릅니다.
   b-table(:data="table")
-    template(scope="props")
+    template(slot-scope="props")
       b-table-column(label="역할")
         | {{ props.row.roleName }}
       b-table-column(label="읽기")

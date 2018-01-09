@@ -1,7 +1,7 @@
 <template lang="pug">
 .page.page-redirections
   b-table(:data="redirections")
-    template(scope="props")
+    template(slot-scope="props")
       b-table-column(label="이름") {{ props.row.sourceFullTitle }}
       b-table-column(label="삭제")
         button.button.is-danger(@click="deleteRedirection(props.row.sourceFullTitle)") 삭제

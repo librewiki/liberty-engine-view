@@ -22,7 +22,7 @@
     "js-cookie": "^2.1.4",
     "jwt-decode": "^2.2.0",
     "moment": "^2.18.1",
-    "nuxt": "^1.0.0-rc11",
+    "nuxt": "^1.0.0",
     "qs": "^6.5.1",
     "validator": "^9.1.1",
     "vue-gravatar": "^1.1.3"

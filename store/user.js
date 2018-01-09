@@ -65,8 +65,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async initializeLogin ({ commit, dispatch }, { req, res, isServer }) {
-    if (isServer) {
+  async initializeLogin ({ commit, dispatch }, { req, res }) {
+    if (process.server) {
       if (!req) return
       if (!req.headers.cookie) return
       const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('jwt='))
@@ -89,9 +89,9 @@ export const actions = {
       commit('loginSuccess', decoded)
     }
   },
-  async initialize ({ commit, dispatch }, { req, res, isServer }) {
+  async initialize ({ commit, dispatch }, { req, res }) {
     try {
-      await dispatch('initializeLogin', { req, res, isServer })
+      await dispatch('initializeLogin', { req, res })
       const { data: { isBlocked } } = await request({
         method: 'get',
         path: 'blocks/check',
