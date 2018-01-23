@@ -13,13 +13,6 @@ nav.liberty-navbar.navbar
           span.navbar-text 랜덤문서
         b-dropdown
           a.navbar-item(slot="trigger")
-            b-icon(icon="comments")
-            span.navbar-text 게시판
-            b-icon.navbar-caret(icon="caret-down")
-          b-dropdown-item(has-link)
-            a(href="#") 위키방
-        b-dropdown
-          a.navbar-item(slot="trigger")
             b-icon(icon="gear")
             span.navbar-text 도구
             b-icon.navbar-caret(icon="caret-down")
@@ -33,15 +26,24 @@ nav.liberty-navbar.navbar
             span.navbar-text 도움말
             b-icon.navbar-caret(icon="caret-down")
           b-dropdown-item(has-link)
-            a(href="#") 문법 도움말
+            nuxt-link(:to="`/article/${encodeURIComponent('문법 도움말')}`") 문법 도움말
           b-dropdown-item(has-link)
             nuxt-link(:to="`/article/${encodeURIComponent('TeX 문법')}`") TeX 문법
       .user-items
         nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login" active-class="")
           b-icon(icon="sign-in")
         template(v-else)
-          a.navbar-item.user-gravatar-wrapper
-            v-gravatar.user-gravatar(:email="user.email")
+          b-dropdown
+            a.navbar-item.user-gravatar-wrapper(slot="trigger")
+              v-gravatar.user-gravatar(:email="user.email")
+            b-dropdown-item(has-link)
+              nuxt-link(:to="`/article/${encodeURIComponent('사용자:' + user.username)}`") 사용자:{{ user.username }}
+            hr.dropdown-divider
+            b-dropdown-item(has-link)
+              nuxt-link(to="/user-settings") 사용자 설정
+            hr.dropdown-divider
+            b-dropdown-item(has-link)
+              a.navbar-item(@click="logout") 로그아웃
           a.navbar-item(role="button" @click="logout")
             b-icon(icon="sign-out")
       .navbar-end
