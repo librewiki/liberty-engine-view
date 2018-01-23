@@ -1,60 +1,28 @@
 <template lang="pug">
 nav.liberty-navbar.navbar
   .container
-    .navbar-brand
-      nuxt-link(to="/")
-        | {{ settings.data.wikiName }}
-      .navbar-mobile-buttons
-        nuxt-link.navbar-item(to="/recent-changes" active-class="")
-          b-icon(icon="refresh")
-        nuxt-link.navbar-item(to="/random" active-class="")
-          b-icon(icon="random")
-        b-dropdown
-          a.navbar-item(slot="trigger")
-            b-icon(icon="comments")
-          b-dropdown-item(has-link)
-            a(href="#") 위키방
-        b-dropdown
-          a.navbar-item(slot="trigger")
-            b-icon(icon="gear")
-          b-dropdown-item(has-link v-if="user.isAdmin")
-            nuxt-link(to="/admin") 관리자 도구
-          b-dropdown-item(has-link)
-            nuxt-link(to="/upload") 파일 업로드
-          b-dropdown-item(has-link)
-            nuxt-link(to="/log/block") 차단 기록
-        b-dropdown
-          a.navbar-item(slot="trigger")
-            b-icon(icon="book")
-          b-dropdown-item(has-link)
-            a(href="#") 문법 도움말
-          b-dropdown-item(has-link)          
-            nuxt-link(:to="`/article/${encodeURIComponent('TeX 문법')}`") TeX 문법
-      .navbar-mobile-right-buttons
-        nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login")
-          b-icon(icon="sign-in")
-        a.navbar-item(v-else)
-          v-gravatar.user-gravatar(:email="user.email")
-    .navbar-menu
+    .navbar-menu.is-active
       .navbar-start
-        nuxt-link.navbar-item(to="/recent-changes")
+        nuxt-link.navbar-item(active-class="" to="/")
+          | {{ settings.data.wikiName }}
+        nuxt-link.navbar-item(active-class="" to="/recent-changes")
           b-icon(icon="refresh")
-          | 최근바뀜
-        nuxt-link.navbar-item(to="/random")
+          span.navbar-text 최근바뀜
+        nuxt-link.navbar-item(active-class="" to="/random")
           b-icon(icon="random")
-          | 랜덤문서
+          span.navbar-text 랜덤문서
         b-dropdown
           a.navbar-item(slot="trigger")
             b-icon(icon="comments")
-            | 게시판
-            b-icon(icon="caret-down")
+            span.navbar-text 게시판
+            b-icon.navbar-caret(icon="caret-down")
           b-dropdown-item(has-link)
             a(href="#") 위키방
         b-dropdown
           a.navbar-item(slot="trigger")
             b-icon(icon="gear")
-            | 도구
-            b-icon(icon="caret-down")
+            span.navbar-text 도구
+            b-icon.navbar-caret(icon="caret-down")
           b-dropdown-item(has-link v-if="user.isAdmin")
             nuxt-link(to="/admin") 관리자 도구
           b-dropdown-item(has-link)
@@ -62,12 +30,20 @@ nav.liberty-navbar.navbar
         b-dropdown
           a.navbar-item(slot="trigger")
             b-icon(icon="book")
-            | 도움말
-            b-icon(icon="caret-down")
+            span.navbar-text 도움말
+            b-icon.navbar-caret(icon="caret-down")
           b-dropdown-item(has-link)
             a(href="#") 문법 도움말
-          b-dropdown-item(has-link)          
+          b-dropdown-item(has-link)
             nuxt-link(:to="`/article/${encodeURIComponent('TeX 문법')}`") TeX 문법
+      .user-items
+        nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login" active-class="")
+          b-icon(icon="sign-in")
+        template(v-else)
+          a.navbar-item.user-gravatar-wrapper
+            v-gravatar.user-gravatar(:email="user.email")
+          a.navbar-item(role="button" @click="logout")
+            b-icon(icon="sign-out")
       .navbar-end
         .search-box-wrapper
           b-field
@@ -78,22 +54,6 @@ nav.liberty-navbar.navbar
             p.control
               button.button(active-class="" @click="search")
                 b-icon(icon="search")
-        nuxt-link.navbar-item(v-if="!user.isLoggedIn" to="/login")
-          b-icon(icon="sign-in")
-        template(v-else)
-          a.navbar-item
-            v-gravatar.user-gravatar(:email="user.email")
-          a.navbar-item(role="button" @click="logout")
-            b-icon(icon="sign-out")
-    .navbar-mobile-search-row
-      b-field
-        b-input.mobile-search-input(placeholder="검색" type="search" icon="search" v-model="searchInput" @keyup.enter.native="go")
-        p.control
-          button.button(active-class="" @click="go")
-            b-icon(icon="arrow-right")
-        p.control
-          button.button(active-class="" @click="search")
-            b-icon(icon="search")
 </template>
 
 <script>
@@ -138,11 +98,81 @@ export default {
   z-index: 18;
   position: fixed;
   width: 100%;
-  .mobile-search {
-    display: none;
-    &.search-mode {
+  @include touch {
+    &>.container {
+      display: flex;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    .navbar-text {
+      display: none;
+    }
+    .navbar-menu {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      background-color: inherit;
+      justify-content: space-between;
+    }
+    .navbar-start,
+    .navbar-end {
+      display: flex;
+      flex-direction: row;
+    }
+    .navbar-item {
+      padding: 0.25rem !important;
+    }
+    .navbar-caret {
+      display: none;
+    }
+    .user-gravatar-wrapper {
       display: flex;
     }
+    .navbar-end {
+      flex: 0 0 100%;
+    }
+    .search-box-wrapper {
+      flex: 1;
+      .input,
+      .icon.is-left,
+      .button {
+        height: 2rem;
+      }
+      .button {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      .fa {
+        font-size: 1.1rem;
+      }
+    }
+    .navbar-search-input {
+      width: 100%;
+    }
+    .user-items {
+      .fa {
+        font-size: 1rem;
+      }
+    }
+    .user-gravatar {
+      max-height: 1.8rem;
+    }
+  }
+  @include desktop {
+    .search-box-wrapper {
+      margin-right: 0.3rem;
+    }
+    .navbar-start .navbar-item .icon:first-child {
+      margin-right: 0.5rem;
+    }
+    .user-items {
+      order: 3;
+    }
+  }
+  .navbar-menu {
+    box-shadow: none;
   }
   .dropdown + .dropdown {
     margin: 0;
@@ -150,24 +180,9 @@ export default {
   .navbar-start .navbar-item {
     padding: 0.5rem 0.7rem;
     .icon {
-      &:first-child {
-        margin-right: 0.5rem;
-      }
       .fa {
         font-size: 1rem;
       }
-    }
-  }
-  .navbar-brand {
-    display: flex;
-    align-items: center;
-    margin-right: 1rem;
-    @include touch {
-      margin-left: 0.625rem;
-      min-height: 2.4rem;
-    }
-    a {
-      color: white;
     }
   }
   .navbar-item {
@@ -177,64 +192,21 @@ export default {
     align-items: center;
   }
   .search-box-wrapper {
-    margin-right: 0.3rem;
     .button:focus {
       box-shadow: none;
     }
   }
-  .navbar-mobile-buttons {
-    margin-left: 0.625rem;
-    display: flex;
-    .navbar-item {
-      padding: 0.25rem;
-      .fa {
-        font-size: 1rem;
-      }
-    }
-    @include desktop {
-      display: none;
-    }
-  }
-  .navbar-mobile-right-buttons {
-    margin-left: auto;
-    margin-right: 0;
-    .navbar-item {
-      padding: 0.25rem;
-      .fa {
-        font-size: 1rem;
-      }
-    }
-    @include desktop {
-      display: none;
-    }
-  }
-  .navbar-mobile-search-row {
-    padding-bottom: 0.4rem;
-    display: flex;
-    * {
-      font-size: 15px;
-    }
-    .field {
-      justify-content: center;
-      flex: 1;
-      padding-left: 0.625rem;
-      padding-right: 0.625rem;
-    }
-    .mobile-search-input {
-      flex: 1;
-    }
-    @include desktop {
-      display: none;
-    }
-  }
-  .navbar-search-input,
-  .mobile-search-input {
+  .navbar-search-input {
     input:focus,
     input:active,
     input:hover {
       border-color: rgb(219, 219, 219);
       box-shadow: inset 0 1px 2px hsla(0,0%,4%,.1);
     }
+  }
+  .user-items {
+    display: flex;
+    flex-direction: row;
   }
   .user-gravatar {
     max-height: 2rem;

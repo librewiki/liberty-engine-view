@@ -30,6 +30,10 @@ export default {
 
 .site-notice {
   background-color: $grey-lighter;
+  margin-bottom: 1rem !important;
+  @include touch {
+    margin-bottom: 0.5rem !important;
+  }
   .wiki-content {
     p {
       margin-bottom: 0;

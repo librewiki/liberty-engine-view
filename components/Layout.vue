@@ -92,7 +92,7 @@ a.external {
     margin-top: ($navbar-height + 1rem);
     margin-bottom: 1rem;
     @include touch {
-      margin-top: ($navbar-height * 2 + 0.5rem);
+      margin-top: ($navbar-height * 2);
     }
   }
   .main-columns {
