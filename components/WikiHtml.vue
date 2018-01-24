@@ -80,7 +80,7 @@ export default {
     padding-bottom: 0.6rem;
     overflow-wrap: break-word;
     overflow: hidden;
-    border-bottom: 1px dashed #e1e8ed;    
+    border-bottom: 1px dashed #e1e8ed;
     font-weight: 500;
     line-height: 1.1;
   }
@@ -137,6 +137,10 @@ export default {
     font-weight: 400;
   }
 
+  del, s, strike {
+    color: gray;
+  }
+
   .toc {
     border-bottom-right-radius: 0.35rem;
     border-bottom-left-radius: 0.35rem;
@@ -166,7 +170,7 @@ export default {
     	border-top: none;
     	border-bottom-right-radius: 0.35rem;
     	border-bottom-left-radius: 0.35rem;
-      margin: 0 !important;      
+      margin: 0 !important;
     }
     ul {
       margin: 0 0 0 2em;
