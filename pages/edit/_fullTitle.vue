@@ -7,7 +7,7 @@
   b-notification(v-if="usingOldRev" :closable="false")
     | 과거 버전을 보고 있습니다. 이대로 편집을 저장하면 이 버전 이후의 편집 내용은 사라집니다.
   b-tabs.editor-switch(type="is-boxed" v-model="modeSwitch")
-    b-tab-item(label="편집")
+    b-tab-item(:label="isEditable? '편집' : '원본'")
     b-tab-item(label="미리보기")
   nav.navbar.is-transparent.editor-tools(v-if="modeSwitch === 0")
     .navbar-menu
@@ -28,10 +28,11 @@
       rows="15"
     )
   wiki-html(v-else class="preview-box" :html="previewHtml")
-  b-field(label="편집 요약")
-    b-input(v-model.trim="model.summary")
-  .right-wrapper
-    button.button.is-primary(@click="submit") 저장
+  template(v-if="isEditable")
+    b-field(label="편집 요약")
+      b-input(v-model.trim="model.summary")
+    .right-wrapper
+      button.button.is-primary(@click="submit") 저장
 </template>
 
 <script>
