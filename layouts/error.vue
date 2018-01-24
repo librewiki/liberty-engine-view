@@ -17,6 +17,7 @@ export default {
   },
   head () {
     if (this.error.message === 'This page could not be found') {
+      this.$store.commit('meta/clear')
       this.$store.commit('meta/update', {
         title: '페이지가 존재하지 않습니다.'
       })

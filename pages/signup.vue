@@ -43,6 +43,7 @@ export default {
           message: '항목을 모두 입력해 주세요.',
           type: 'is-warning'
         })
+        return
       }
       if (this.model.password.length < 6) {
         this.$toast.open({
@@ -50,6 +51,7 @@ export default {
           message: '비밀번호는 6자 이상 입력해야 합니다.',
           type: 'is-warning'
         })
+        return
       }
       if (this.model.password !== this.model.passwordRetype) {
         this.$toast.open({
@@ -57,6 +59,7 @@ export default {
           message: '비밀번호를 확인해 주세요.',
           type: 'is-warning'
         })
+        return
       }
       await request({
         method: 'post',
