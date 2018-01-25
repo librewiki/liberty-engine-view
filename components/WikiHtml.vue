@@ -74,6 +74,18 @@ export default {
     line-height: 1.5;
   }
 
+  pre.syntax-highlight {
+    color: inherit;
+    background-color: inherit;
+    border: 1px solid #e1e8ed;
+    border-radius: 0.35rem;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     margin-top: 1rem;
     margin-bottom: 0.6rem;

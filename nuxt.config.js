@@ -15,6 +15,10 @@ module.exports = {
         href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.css',
         integrity: 'sha384-8QOKbPtTFvh/lMY0qPVbXj9hDh+v8US0pD//FcoYFst2lCIf0BmT58+Heqj0IGyx',
         crossorigin: 'anonymous'
+      },
+      {
+        rel: 'stylesheet',
+        href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css'
       }
     ]
   },
