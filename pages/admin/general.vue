@@ -4,6 +4,9 @@
     b-input(v-model="model.wikiName")
   b-field(label="첫 페이지")
     b-input(v-model="model.frontPage")
+  b-field(label="언어")
+    b-select(v-model="model.language")
+      option(v-for="lang in original.availableLanguages" :value="lang" :key="lang") {{ lang }}
   b-field(label="Favicon")
   b-field(grouped)
     b-input(v-model="faviconSearchText" @keyup.native.enter="searchFavicon")
@@ -65,6 +68,16 @@ export default {
           method: 'put',
           body: {
             frontPage: this.model.frontPage
+          }
+        })
+      }
+      if (this.original.language !== this.model.language) {
+        console.log(this.model.language)
+        await request({
+          path: `settings/language`,
+          method: 'put',
+          body: {
+            language: this.model.language
           }
         })
       }

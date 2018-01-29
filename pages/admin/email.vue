@@ -7,9 +7,9 @@
     b-input(v-model="model.port")
   b-field(label="secure")
     b-switch(v-model="model.secure") {{ model.secure }}
-  b-field(label="user")      
+  b-field(label="user")
     b-input(v-model="model.user")
-  b-field(label="password")      
+  b-field(label="password")
     b-input(v-model="model.password")
   .right-wrapper
     button.button.is-primary(@click="submit") 저장
@@ -32,7 +32,6 @@ export default {
       res
     })
     return {
-      faviconSearchText: '',
       original: {
         ...resp.data.email
       },
