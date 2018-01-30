@@ -5,7 +5,7 @@
     h3.is-size-3 새 역할 추가
     b-field(label="역할 이름")
       b-input(v-model="newRoleName")
-    button.button.is-primary(@click="submitNewRole") 추가      
+    button.button.is-primary(@click="submitNewRole") 추가
   section
     h3.is-size-3 역할 편집 / 제거
     b-field(label="역할 선택")
@@ -38,10 +38,13 @@
       b-field(v-for="(value, key) in specialPermissions" :key="key")
         b-checkbox(v-model="specialPermissions[key]") {{ key }}
       button.button.is-primary(@click="submitSpecialPermission") 저장
+<<<<<<< 6c2b5ed2df4a3b904eaf6de5ed3f062a56de65a7
     section(v-if="roleId && roleId > 3")
       h3.is-size-3 역할 제거
       p 역할을 제거합니다. 그 역할을 부여받은 사용자들은 해당하는 권한을 잃게 됩니다.
       button.button.is-danger(@click="removeRole") 삭제      
+=======
+>>>>>>> fix validation
 </template>
 
 <script>
@@ -102,6 +105,22 @@ export default {
   },
   methods: {
     async submitNewRole () {
+      if (!this.newRoleName) {
+        this.$toast.open({
+          duration: 3000,
+          message: '역할 이름을 입력해 주세요.',
+          type: 'is-danger'
+        })
+        return
+      }
+      if (this.newRoleName.length > 127) {
+        this.$toast.open({
+          duration: 3000,
+          message: '역할 이름이 너무 깁니다.',
+          type: 'is-danger'
+        })
+        return
+      }
       await request({
         path: `roles`,
         method: 'post',
@@ -185,3 +204,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.admin-grant {
+  .select select {
+    width: 100%;
+  }
+}
+</style>

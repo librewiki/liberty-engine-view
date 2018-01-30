@@ -48,6 +48,7 @@ export default {
           message: '모두 입력해 주세요.',
           type: 'is-danger'
         })
+        return
       }
       if (!_.isEqual(this.original, this.model) && this.model.host && this.model.password) {
         await request({
