@@ -9,10 +9,14 @@
         button.button.is-small(slot="trigger")
           span 관리
           b-icon(icon="caret-down")
-        b-dropdown-item(@click="hide") 이 코멘트 숨기기
+        b-dropdown-item(@click="hide" v-if="comment.status === 'PUBLIC'") 이 코멘트 숨기기
+        b-dropdown-item(@click="unhide" v-else) 이 코멘트 숨김 해제
   .card-content(:class="{ 'hidden-comment': comment.status === 'HIDDEN' }")
     wiki-html(v-if="comment.status === 'PUBLIC'" :html="comment.html")
-    div(v-else) 이 코멘트는 숨겨졌습니다.
+    div(v-else) 이 코멘트는
+      = ' '
+      nuxt-link(:to="`/article/${encodeURIComponent('사용자:' + comment.hiderName)}`") 사용자:{{comment.hiderName}}
+      | 에 의해 숨겨졌습니다.
 </template>
 
 <script>
@@ -37,6 +41,16 @@ export default {
         path: `discussion-comments/${this.comment.id}/status`,
         body: {
           status: 'HIDDEN'
+        }
+      })
+      history.go(0)
+    },
+    async unhide () {
+      await request({
+        method: 'put',
+        path: `discussion-comments/${this.comment.id}/status`,
+        body: {
+          status: 'PUBLIC'
         }
       })
       history.go(0)
