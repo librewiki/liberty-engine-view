@@ -1,6 +1,6 @@
 {
   "name": "liberty-engine-view",
-  "version": "0.2.0",
+  "version": "0.3.3",
   "description": "View engine of LibertyEngine.",
   "author": "nessunkim <nessunkim@gmail.com>",
   "private": true,
