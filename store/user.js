@@ -17,7 +17,8 @@ export const state = () => ({
   roles: [],
   isAdmin: false,
   isBlocked: false,
-  reasonOfBlock: null
+  reasonOfBlock: null,
+  specialPermissions: []
 })
 
 const errorMessages = {
@@ -29,6 +30,9 @@ export const mutations = {
   block (state, isBlocked) {
     state.isBlocked = isBlocked
   },
+  userData (state, { specialPermissions }) {
+    state.specialPermissions = specialPermissions
+  },
   loginSuccess (state, decodedToken) {
     state.isInitialized = true
     state.isLoggedIn = true
@@ -39,6 +43,7 @@ export const mutations = {
     state.roles = decodedToken.roles
     state.isAdmin = decodedToken.isAdmin
     state.isBlockedUser = decodedToken.isBlockedUser
+    state.specialPermissions = []
   },
   loginFailure (state, errorType) {
     state.isInitialized = true
@@ -50,6 +55,7 @@ export const mutations = {
     state.roles = []
     state.isAdmin = false
     state.isBlockedUser = false
+    state.specialPermissions = []
   },
   logoutSuccess (state) {
     state.isInitialized = true
@@ -61,6 +67,7 @@ export const mutations = {
     state.roles = []
     state.isAdmin = false
     state.isBlockedUser = false
+    state.specialPermissions = []
   }
 }
 
@@ -89,7 +96,7 @@ export const actions = {
       commit('loginSuccess', decoded)
     }
   },
-  async initialize ({ commit, dispatch }, { req, res }) {
+  async initialize ({ commit, dispatch, state }, { req, res }) {
     try {
       await dispatch('initializeLogin', { req, res })
       const { data: { isBlocked } } = await request({
@@ -99,6 +106,15 @@ export const actions = {
         res
       })
       commit('block', isBlocked)
+      if (state.id) {
+        const { data: { user } } = await request({
+          method: 'get',
+          path: `users/${state.id}`,
+          req,
+          res
+        })
+        commit('userData', user)
+      }
     } catch (e) {
       unsetToken()
       commit('logoutSuccess')

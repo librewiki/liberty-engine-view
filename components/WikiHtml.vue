@@ -59,6 +59,10 @@ export default {
 .wiki-content {
   line-height: 1.6rem;
 
+  &>p:last-child {
+    margin-bottom: 0;
+  }
+
   pre {
     display: block;
     color: #333;

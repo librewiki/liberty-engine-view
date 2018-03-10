@@ -1,14 +1,24 @@
 <template lang="pug">
 .card.discussion-comment-card
   header.card-header
-    .comment-author {{ comment.authorName || comment.ipAddress }}
-    .comment-date {{ $moment(comment.createdAt).format('LLLL') }}
-  .card-content
-    wiki-html(:html="comment.html")
+    .comment-info
+      .comment-author {{ comment.authorName || comment.ipAddress }}
+      .comment-date {{ $moment(comment.createdAt).format('LLLL') }}
+    .comment-admin(v-if="user.specialPermissions.includes('SET_DISCUSSION_STATUS')")
+      b-dropdown(position="is-bottom-left")
+        button.button.is-small(slot="trigger")
+          span 관리
+          b-icon(icon="caret-down")
+        b-dropdown-item(@click="hide") 이 코멘트 숨기기
+  .card-content(:class="{ 'hidden-comment': comment.status === 'HIDDEN' }")
+    wiki-html(v-if="comment.status === 'PUBLIC'" :html="comment.html")
+    div(v-else) 이 코멘트는 숨겨졌습니다.
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import WikiHtml from '~/components/WikiHtml'
+import request from '~/utils/request'
 
 export default {
   components: {
@@ -16,6 +26,21 @@ export default {
   },
   props: {
     comment: Object
+  },
+  computed: {
+    ...mapState(['user'])
+  },
+  methods: {
+    async hide () {
+      await request({
+        method: 'put',
+        path: `discussion-comments/${this.comment.id}/status`,
+        body: {
+          status: 'HIDDEN'
+        }
+      })
+      history.go(0)
+    }
   }
 }
 </script>
@@ -30,8 +55,19 @@ export default {
     display: flex;
     justify-content: space-between;
   }
+  .comment-info {
+    flex: 1;
+    display: flex;    
+    justify-content: space-between;    
+  }
+  .comment-admin {
+    margin-left: 1rem;
+  }
   .card-content {
     padding: 1rem;
+  }
+  .hidden-comment {
+    background-color: $light;
   }
 }
 </style>
