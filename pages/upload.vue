@@ -5,9 +5,9 @@
       section.file-upload
         h3.is-size-3 파일 선택
         b-field
+          // accept="image/jpeg, image/png, image/gif, image/x-icon" (buefy bug)
           b-upload(
             v-model="model.files"
-            accept="image/jpeg, image/png, image/gif, image/x-icon"
             drag-drop
           )
             section.section
@@ -84,8 +84,10 @@ export default {
       reader.onload = async () => {
         this.dataUrl = reader.result
         await this.$nextTick()
-        this.width = this.$refs.img.naturalWidth
-        this.height = this.$refs.img.naturalHeight
+        setTimeout(() => {
+          this.width = this.$refs.img.naturalWidth
+          this.height = this.$refs.img.naturalHeight
+        }, 20)
       }
       reader.readAsDataURL(file)
     }
