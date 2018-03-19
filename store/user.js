@@ -30,8 +30,12 @@ export const mutations = {
   block (state, isBlocked) {
     state.isBlocked = isBlocked
   },
-  userData (state, { specialPermissions }) {
+  userProperty (state, {
+    specialPermissions = [],
+    isFileCreatable = false
+  }) {
     state.specialPermissions = specialPermissions
+    state.isFileCreatable = isFileCreatable
   },
   loginSuccess (state, decodedToken) {
     state.isInitialized = true
@@ -113,7 +117,9 @@ export const actions = {
           req,
           res
         })
-        commit('userData', user)
+        commit('userProperty', user)
+      } else {
+        commit('userProperty', {})
       }
     } catch (e) {
       unsetToken()

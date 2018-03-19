@@ -53,6 +53,9 @@ export default {
     store.commit('meta/update', {
       title: '파일 업로드'
     })
+    if (!store.state.user.isFileCreatable) {
+      return error({ message: '파일을 업로드하기 위한 권한이 없습니다.' })
+    }
   },
   data () {
     return {
