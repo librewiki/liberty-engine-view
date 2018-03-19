@@ -64,12 +64,20 @@ export default {
               order: 'updatedAt'
             }
           })
-          this.items = resp.data.discussionTopics.map(topic => ({
-            key: 't' + topic.id,
-            timeString: this.$moment(topic.updatedAt).format('HH[:]mm[:]ss'),
-            text: topic.article.fullTitle,
-            to: `/discussion/${topic.id}`
-          }))
+          this.items = resp.data.discussionTopics.map(topic => {
+            let timeString
+            if (this.$moment(topic.updatedAt) < this.$moment().subtract(1, 'day')) {
+              timeString = this.$moment(topic.updatedAt).fromNow()
+            } else {
+              timeString = this.$moment(topic.updatedAt).format('HH[:]mm[:]ss')
+            }
+            return {
+              key: 't' + topic.id,
+              timeString,
+              text: topic.article.fullTitle,
+              to: `/discussion/${topic.id}`
+            }
+          })
         }
         this.pending = false
         this.error = false
