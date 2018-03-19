@@ -9,6 +9,7 @@
   b-tabs.editor-switch(type="is-boxed" v-model="modeSwitch")
     b-tab-item(:label="isEditable? '편집' : '원본'")
     b-tab-item(label="미리보기")
+    b-tab-item(v-if="isEditable" label="차이 보기")
   nav.navbar.is-transparent.editor-tools(v-if="modeSwitch === 0")
     .navbar-menu
       .navbar-start
@@ -27,7 +28,8 @@
       :readonly="!isEditable"
       rows="15"
     )
-  wiki-html(v-else class="preview-box" :html="previewHtml")
+  wiki-html(v-else-if="modeSwitch === 1" class="preview-box" :html="previewHtml")
+  div(v-else-if="modeSwitch === 2" v-html="diffHtml")
   template(v-if="isEditable")
     b-field(label="편집 요약")
       b-input(v-model.trim="model.summary")
@@ -39,6 +41,8 @@
 import articleManager from '~/utils/articleManager'
 import WikiHtml from '~/components/WikiHtml'
 import request from '~/utils/request'
+import { createPatch } from 'diff'
+import { Diff2Html } from 'diff2html'
 
 export default {
   components: {
@@ -86,6 +90,7 @@ export default {
         isEditable,
         article,
         usingOldRev: !!oldRevision,
+        originalWikitext: oldRevision ? oldRevision.wikitext : article.wikitext,
         model: {
           wikitext: oldRevision ? oldRevision.wikitext : article.wikitext
         }
@@ -104,6 +109,7 @@ export default {
           fullTitle,
           isEditable: err.response.data.isCreatable,
           usingOldRev: false,
+          originalWikitext: '',
           model: {
             wikitext: ''
           }
@@ -123,7 +129,8 @@ export default {
       model: {
         wikitext: '',
         summary: ''
-      }
+      },
+      diffHtml: ''
     }
   },
   methods: {
@@ -147,6 +154,19 @@ export default {
     async fetchPreview () {
       const resp = await request({ method: 'post', path: 'preview', body: { wikitext: this.model.wikitext } })
       this.previewHtml = resp.data.html
+    },
+    getDiffHtml () {
+      this.diffHtml = Diff2Html.getPrettySideBySideHtmlFromDiff(
+        createPatch(
+          this.fullTitle,
+          this.originalWikitext,
+          this.model.wikitext,
+          '기존 버전',
+          '편집중인 버전'
+        )
+      )
+        .replace('<span class="d2h-tag d2h-changed d2h-changed-tag">CHANGED</span>', '')
+        .replace('<span class="d2h-tag d2h-moved d2h-moved-tag">RENAMED</span>', '')
     },
     async submit () {
       if (this.new) {
@@ -185,6 +205,8 @@ export default {
     modeSwitch (val) {
       if (val === 1) {
         this.fetchPreview()
+      } else if (val === 2) {
+        this.getDiffHtml()
       }
     }
   }
