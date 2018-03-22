@@ -7,7 +7,7 @@
       b-input(v-model="newRoleName")
     button.button.is-primary(@click="submitNewRole") 추가      
   section
-    h3.is-size-3 권한 편집
+    h3.is-size-3 역할 편집 / 제거
     b-field(label="역할 선택")
       b-select(placeholder="편집할 역할을 선택하세요." @input="fetchRole")
         option(v-for="role in roles" :value="role.id") {{ role.name }}
@@ -37,7 +37,11 @@
       h3.is-size-3 특수 권한
       b-field(v-for="(value, key) in specialPermissions" :key="key")
         b-checkbox(v-model="specialPermissions[key]") {{ key }}
-      button.button.is-primary(@click="submitSpecialPermission") 저장      
+      button.button.is-primary(@click="submitSpecialPermission") 저장
+    section(v-if="roleId && roleId > 3")
+      h3.is-size-3 역할 제거
+      p 역할을 제거합니다. 그 역할을 부여받은 사용자들은 해당하는 권한을 잃게 됩니다.
+      button.button.is-danger(@click="removeRole") 삭제      
 </template>
 
 <script>
@@ -165,6 +169,18 @@ export default {
         type: 'is-success'
       })
       this.fetchRole(this.roleId)
+    },
+    async removeRole () {
+      await request({
+        path: `roles/${this.roleId}`,
+        method: 'DELETE'
+      })
+      this.$toast.open({
+        duration: 3000,
+        message: '완료되었습니다.',
+        type: 'is-success'
+      })
+      history.go(0)
     }
   }
 }
