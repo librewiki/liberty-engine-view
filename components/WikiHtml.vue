@@ -59,6 +59,12 @@ export default {
 .wiki-content {
   line-height: 1.6rem;
 
+  &::after {
+    clear: both;
+    content: " ";
+    display: table;
+  }
+
   &>p:last-child {
     margin-bottom: 0;
   }
@@ -202,9 +208,33 @@ export default {
     }
   }
 
+  div.thumb {
+    .wiki-image {
+      background-color: #ffffff;
+      box-shadow: 0.25rem 0.25rem 0 0 #e1e8ed;
+    }
+  }
+
+  div.thumb-right {
+    margin-left: 0.8rem;
+    margin-bottom: 0.8rem;
+    clear: right;
+    float: right;
+  }
+
+  div.thumb-inner {
+    margin: auto;
+    text-align: center;
+    max-width: 100%;
+  }
+
   .references {
     font-size: 90%;
     margin-left: 2.2rem;
+  }
+
+  .embed-video {
+    max-width: 100%;
   }
 
   .liberty-table-wrapper {
@@ -219,10 +249,6 @@ export default {
 
   .table-right {
   	float: right;
-  }
-
-  .embed-video {
-    max-width: 100%;
   }
 
   table.wikitable,
