@@ -30,7 +30,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['babel-polyfill', 'buefy', 'axios', 'validator', 'qs', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
+    vendor: ['babel-polyfill', 'buefy', 'vue-form-generator', 'axios', 'validator', 'qs', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
     /*
     ** Run ESLINT on save
     */
@@ -48,6 +48,7 @@ module.exports = {
   plugins: [
     { src: '~plugins/matchesPolyfill', ssr: false },
     '~plugins/buefy',
+    '~plugins/vue-form-generator',
     '~plugins/moment',
     '~plugins/vue-gravatar',
     { src: '~plugins/eventHub', ssr: false }

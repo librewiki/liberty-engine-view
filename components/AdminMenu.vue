@@ -22,10 +22,17 @@ aside.menu
       nuxt-link(to="/admin/role") 역할 관리
     li
       nuxt-link(to="/admin/grant") 사용자 역할 부여 / 해제
+  p.menu-label 확장기능 관리
+  ul.menu-list
+    li(v-for="extensionName in extensions")
+      nuxt-link(:to="`/admin/extension/${extensionName}`") {{ extensionName }}
 </template>
 
 <script>
 export default {
+  props: {
+    extensions: Array
+  }
 }
 </script>
 
