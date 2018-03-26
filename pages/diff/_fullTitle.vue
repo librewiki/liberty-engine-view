@@ -20,7 +20,11 @@ export default {
     })
     try {
       const article = await articleManager.getByFullTitle(fullTitle, {
-        fields: ['fullTitle', 'allowedActions'],
+        fields: [
+          'fullTitle',
+          'allowedActions',
+          'numOpenDiscussions'
+        ],
         req,
         res
       })
@@ -28,7 +32,8 @@ export default {
         title: `"${article.fullTitle}" 두 판 차이 보기`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       const [oldRevision, newRevision] = await Promise.all([

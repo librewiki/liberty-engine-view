@@ -52,7 +52,8 @@ export default {
           'wikitext',
           'categories',
           'latestRevisionId',
-          'allowedActions'
+          'allowedActions',
+          'numOpenDiscussions'
         ],
         req,
         res
@@ -69,7 +70,8 @@ export default {
         updatedAt: article.updatedAt,
         toolBox: {
           fullTitle: article.fullTitle,
-          allowedActions: article.allowedActions
+          allowedActions: article.allowedActions,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       let mediaFile = null

@@ -40,8 +40,9 @@ export default {
         fields: [
           'id',
           'fullTitle',
+          'redirections',
           'allowedActions',
-          'redirections'
+          'numOpenDiscussions'
         ],
         req,
         res
@@ -50,7 +51,8 @@ export default {
         title: `"${article.fullTitle}" 문서로 넘겨주기`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       return {

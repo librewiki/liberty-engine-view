@@ -31,7 +31,8 @@ export default {
         fields: [
           'id',
           'fullTitle',
-          'allowedActions'
+          'allowedActions',
+          'numOpenDiscussions'
         ],
         req,
         res
@@ -40,7 +41,8 @@ export default {
         title: `"${article.fullTitle}" 문서명 변경`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       if (!article.allowedActions.includes('rename')) {

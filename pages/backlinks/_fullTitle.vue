@@ -41,7 +41,8 @@ export default {
         fields: [
           'id',
           'fullTitle',
-          'allowedActions'
+          'allowedActions',
+          'numOpenDisucssions'
         ],
         req,
         res
@@ -50,7 +51,8 @@ export default {
         title: `"${article.fullTitle}" 문서를 가리키는 문서`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDisucssions: article.numOpenDisucssions
         }
       })
       const resp = await request({

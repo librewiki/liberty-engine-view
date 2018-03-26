@@ -24,7 +24,8 @@
         tag="li"
         :to="`/topics/${encodedFullTitle}`"
       )
-        a 토의
+        a 토의&nbsp;
+          b-tag(v-if="numOpenDisucssions" rounded type="is-primary") {{ numOpenDisucssions }}
       nuxt-link(
         v-if="allowedActions.includes('read')"
         tag="li"
@@ -63,6 +64,12 @@ export default {
           return null
         }
         return encodeURIComponent(state.meta.toolBox.fullTitle)
+      },
+      numOpenDisucssions: state => {
+        if (!state.meta.toolBox) {
+          return 0
+        }
+        return state.meta.toolBox.numOpenDiscussions
       }
     })
   }

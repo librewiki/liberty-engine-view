@@ -55,8 +55,9 @@ export default {
         fields: [
           'id',
           'fullTitle',
+          'permissions',
           'allowedActions',
-          'permissions'
+          'numOpenDiscussions'
         ],
         req,
         res
@@ -65,7 +66,8 @@ export default {
         title: `"${article.fullTitle}" 문서 권한 설정`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
 

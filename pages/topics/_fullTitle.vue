@@ -46,7 +46,12 @@ export default {
     })
     try {
       const article = await articleManager.getByFullTitle(fullTitle, {
-        fields: ['fullTitle', 'allowedActions', 'discussionTopics'],
+        fields: [
+          'fullTitle',
+          'discussionTopics',
+          'allowedActions',
+          'numOpenDiscussions'
+        ],
         req,
         res
       })
@@ -54,7 +59,8 @@ export default {
         title: `"${article.fullTitle}" 문서에 관해 진행중인 토의`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       return {

@@ -72,7 +72,6 @@ export default {
         })
       }
       if (this.original.language !== this.model.language) {
-        console.log(this.model.language)
         await request({
           path: `settings/language`,
           method: 'put',

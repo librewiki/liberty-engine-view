@@ -63,7 +63,8 @@ export default {
           'title',
           'wikitext',
           'latestRevisionId',
-          'allowedActions'
+          'allowedActions',
+          'numOpenDiscussions'
         ],
         req,
         res
@@ -81,7 +82,8 @@ export default {
         title: isEditable ? `"${article.fullTitle}" 편집` : `"${article.fullTitle}" 원본 보기`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       return {

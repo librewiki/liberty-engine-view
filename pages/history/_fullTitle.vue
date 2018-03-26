@@ -51,7 +51,12 @@ export default {
     })
     try {
       const article = await articleManager.getByFullTitle(fullTitle, {
-        fields: ['fullTitle', 'allowedActions', 'revisions'],
+        fields: [
+          'fullTitle',
+          'revisions',
+          'allowedActions',
+          'numOpenDiscussions'
+        ],
         req,
         res
       })
@@ -59,7 +64,8 @@ export default {
         title: `"${article.fullTitle}" 편집 역사 보기`,
         toolBox: {
           allowedActions: article.allowedActions,
-          fullTitle: article.fullTitle
+          fullTitle: article.fullTitle,
+          numOpenDiscussions: article.numOpenDiscussions
         }
       })
       return {
