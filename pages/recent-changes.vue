@@ -27,7 +27,7 @@ export default {
     })
     const resp = await request({
       method: 'get',
-      path: 'revisions',
+      path: 'revisions?limit=50',
       req,
       res
     })
