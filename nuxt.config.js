@@ -18,7 +18,9 @@ module.exports = {
       },
       {
         rel: 'stylesheet',
-        href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css'
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css',
+        integrity: 'sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn',
+        crossorigin: 'anonymous'
       }
     ]
   },
