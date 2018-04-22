@@ -84,6 +84,9 @@ export default {
   display: flex;
   .tabs {
     margin-bottom: 0;
+    a {
+      padding: 0.4rem 0.8rem;
+    }
   }
   .tabs.is-toggle li:last-child a {
     border-radius: 0;

@@ -129,6 +129,7 @@ a.external {
     }
     border-top-left-radius: $radius-large;
     border-top-right-radius: $radius-large;
+    border: 1px solid #e1e8ed;
     background-color: $background;
     .title-wrapper-row {
       .level-left > .level-item {
@@ -158,6 +159,8 @@ a.external {
   .main-content {
     word-wrap: break-word;
     padding: $box-padding;
+    border-left: 1px solid #e1e8ed;
+    border-right: 1px solid #e1e8ed;
     @include touch {
       padding: ($box-padding / 2);
     }
@@ -167,6 +170,7 @@ a.external {
     @include touch {
       padding: ($box-padding / 2);
     }
+    border: 1px solid #e1e8ed;
     border-bottom-left-radius: $radius-large;
     border-bottom-right-radius: $radius-large;
     background-color: $background;
