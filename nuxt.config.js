@@ -47,6 +47,9 @@ module.exports = {
       }
     }
   },
+  serverMiddleware: [
+    '~/middleware/helmet'
+  ],
   plugins: [
     { src: '~plugins/matchesPolyfill', ssr: false },
     '~plugins/buefy',
