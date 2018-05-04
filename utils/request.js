@@ -3,8 +3,8 @@ import jwtDecode from 'jwt-decode'
 import Cookies from 'js-cookie'
 import qs from 'qs'
 
-const serverSideApiPath = 'http://localhost:3001'
-const clientSideApiPath = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3001'
+const serverSideApiPath = `http://localhost:${process.env.API_PORT || 3001}`
+const clientSideApiPath = process.env.NODE_ENV === 'production' ? '/api' : serverSideApiPath
 
 async function serverSideRequest ({
   path,
