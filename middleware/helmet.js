@@ -2,7 +2,7 @@ const helmet = require('helmet')
 
 const defaultSrc = process.env.NODE_ENV === 'production'
   ? ["'self'", 'data:', 'www.gravatar.com']
-  : ["'self'", 'data:', 'www.gravatar.com', `http://localhost:${process.env.API_PORT || 3001}`]
+  : ["'self'", 'data:', 'www.gravatar.com', `http://localhost:${process.env.API_PORT || '3001'}`]
 
 module.exports = helmet({
   frameguard: {
