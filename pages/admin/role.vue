@@ -38,13 +38,10 @@
       b-field(v-for="(value, key) in specialPermissions" :key="key")
         b-checkbox(v-model="specialPermissions[key]") {{ key }}
       button.button.is-primary(@click="submitSpecialPermission") 저장
-<<<<<<< 6c2b5ed2df4a3b904eaf6de5ed3f062a56de65a7
     section(v-if="roleId && roleId > 3")
       h3.is-size-3 역할 제거
       p 역할을 제거합니다. 그 역할을 부여받은 사용자들은 해당하는 권한을 잃게 됩니다.
-      button.button.is-danger(@click="removeRole") 삭제      
-=======
->>>>>>> fix validation
+      button.button.is-danger(@click="removeRole") 삭제
 </template>
 
 <script>
