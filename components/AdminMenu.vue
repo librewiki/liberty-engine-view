@@ -25,7 +25,7 @@ aside.menu
   p.menu-label 확장기능 관리
   ul.menu-list
     li(v-for="extensionName in extensions")
-      nuxt-link(:to="`/admin/extension/${extensionName}`") {{ extensionName }}
+      nuxt-link(:to="`/admin/extension/${encodeURIComponent(extensionName)}`") {{ extensionName }}
 </template>
 
 <script>

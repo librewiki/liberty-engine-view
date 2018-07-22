@@ -177,7 +177,7 @@ export default {
           wikitext: this.model.wikitext,
           summary: this.model.summary
         })
-        this.$router.push(`/article/${this.fullTitle}`)
+        this.$router.push(`/article/${encodeURIComponent(this.fullTitle)}`)
         this.$eventHub.$emit('reload-live-recent')
       } else {
         try {
@@ -187,7 +187,7 @@ export default {
             wikitext: this.model.wikitext,
             summary: this.model.summary
           })
-          this.$router.push(`/article/${this.fullTitle}`)
+          this.$router.push(`/article/${encodeURIComponent(this.fullTitle)}`)
           this.$eventHub.$emit('reload-live-recent')
         } catch (err) {
           if (!err.response) throw err

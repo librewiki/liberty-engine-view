@@ -110,7 +110,7 @@ export default {
         return error({ statusCode: 500 })
       }
       if (err.response.status === 404) {
-        return error({ statusCode: 404, message: '문서가 존재하지 않습니다.', createArticleLink: `/edit/${fullTitle}` })
+        return error({ statusCode: 404, message: '문서가 존재하지 않습니다.', createArticleLink: `/edit/${encodeURIComponent(fullTitle)}` })
       }
       if (err.response.data.name === 'UnauthorizedError') {
         return error({ statusCode: 403, message: '이 문서를 읽을 권한이 없습니다.' })

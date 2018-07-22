@@ -17,7 +17,7 @@
       nuxt-link(:to="`/edit/${encodeURIComponent(backlink.sourceArticle.fullTitle)}`") 편집
       | )
   p(v-else)
-    nuxt-link(:to="`/article/${article.fullTitle}`") {{ article.fullTitle }}
+    nuxt-link(:to="`/article/${encodeURIComponent(article.fullTitle)}`") {{ article.fullTitle }}
     | &nbsp;문서를 가리키는 문서가 없습니다.
 </template>
 

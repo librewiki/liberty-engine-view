@@ -4,7 +4,7 @@
     :schema="schema"
     :model="model"
   )
-  button.button.is-primary(@click="submit") 저장  
+  button.button.is-primary(@click="submit") 저장
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
     })
     const { data: { formSchema, currentData } } = await request({
       method: 'get',
-      path: `extensions/${extensionName}/form`,
+      path: `extensions/${encodeURIComponent(extensionName)}/form`,
       req,
       res
     })
@@ -33,7 +33,7 @@ export default {
     async submit () {
       try {
         await request({
-          path: `extensions/${this.extensionName}/configuration`,
+          path: `extensions/${encodeURIComponent(this.extensionName)}/configuration`,
           method: 'put',
           body: this.model
         })
