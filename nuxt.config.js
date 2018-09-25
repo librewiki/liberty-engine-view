@@ -32,7 +32,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['babel-polyfill', 'buefy', 'vue-form-generator', 'axios', 'validator', 'qs', 'jwt-decode', 'js-cookie', 'moment', 'diff', 'diff2html', 'vue-gravatar'],
     /*
     ** Run ESLINT on save
     */

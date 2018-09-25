@@ -83,7 +83,7 @@ export default {
   background: white;
   display: flex;
   .tabs {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
     a {
       padding: 0.4rem 0.8rem;
     }

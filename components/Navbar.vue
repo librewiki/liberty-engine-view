@@ -97,7 +97,7 @@ export default {
 
 .liberty-navbar {
   top: 0;
-  z-index: 18;
+  z-index: 18 !important;
   position: fixed;
   width: 100%;
   @include touch {
@@ -112,7 +112,7 @@ export default {
     }
     .navbar-menu {
       flex: 1;
-      display: flex;
+      display: flex !important;
       flex-wrap: wrap;
       padding: 0;
       background-color: inherit;

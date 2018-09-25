@@ -1,10 +1,10 @@
-const helmet = require('helmet')
+import helmet from 'helmet'
 
 const defaultSrc = process.env.NODE_ENV === 'production'
   ? ["'self'", 'data:', 'www.gravatar.com']
   : ["'self'", 'data:', 'www.gravatar.com', `http://localhost:${process.env.API_PORT || '3001'}`]
 
-module.exports = helmet({
+export default helmet({
   frameguard: {
     action: 'deny'
   },

@@ -110,11 +110,11 @@ export default {
       padding: 0.6rem;
       border-bottom-right-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
-      border-bottom: 0;
+      border-bottom: 0 !important;
     }
     .is-active {
       background-color: white;
-      border-bottom: 2px solid $primary;
+      border-bottom: 2px solid $primary !important;
     }
   }
   .live-recent-content {
