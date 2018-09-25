@@ -69,7 +69,7 @@ module.exports = {
   },
   router: {
     linkActiveClass: 'is-active',
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior: (to, from, savedPosition) => {
       // savedPosition is only available for popstate navigations.
       if (savedPosition) {
         return savedPosition
