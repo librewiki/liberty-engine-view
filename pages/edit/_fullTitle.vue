@@ -231,6 +231,7 @@ export default {
     border-right: 1px solid $border;
     border-bottom: 1px solid $border;
     min-height: 1rem;
+    z-index: 2;
   }
   .editor-tools-item {
     padding: 0.4rem 1rem;

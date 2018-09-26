@@ -1,6 +1,7 @@
 <template lang="pug">
 .page.page-diff
   .diff-content(v-html="diffHtml")
+  .diff-content-mobile(v-html="diffHtmlMobile")
 </template>
 
 <script>
@@ -48,21 +49,23 @@ export default {
           res
         })
       ])
-      const diffHtml = Diff2Html.getPrettySideBySideHtmlFromDiff(
-        createPatch(
-          article.fullTitle,
-          oldRevision.wikitext,
-          newRevision.wikitext,
-          `${oldRevision.id}판`,
-          `${newRevision.id}판`
-        )
+      const patch = createPatch(
+        article.fullTitle,
+        oldRevision.wikitext,
+        newRevision.wikitext,
+        `${oldRevision.id}판`,
+        `${newRevision.id}판`
       )
+      const diffHtml = Diff2Html.getPrettyHtml(patch, { outputFormat: 'side-by-side' })
         .replace('<span class="d2h-tag d2h-changed d2h-changed-tag">CHANGED</span>', '')
         .replace('<span class="d2h-tag d2h-moved d2h-moved-tag">RENAMED</span>', '')
+      const diffHtmlMobile = Diff2Html.getPrettyHtml(patch, { outputFormat: 'line-by-line' })
+
       return {
         oldRevision,
         newRevision,
-        diffHtml
+        diffHtml,
+        diffHtmlMobile
       }
     } catch (err) {
       if (!err.response) {
@@ -79,3 +82,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~assets/style-variables.scss';
+
+.page-diff {
+  .diff-content {
+    @include touch {
+      display: none;
+    }
+  }
+  .diff-content-mobile {
+    @include desktop {
+      display: none;
+    }
+  }
+}
+</style>
