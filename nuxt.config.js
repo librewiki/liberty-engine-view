@@ -12,8 +12,8 @@ module.exports = {
     link: [
       {
         rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css',
-        integrity: 'sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei',
+        href: 'https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.css',
+        integrity: 'sha384-xNwWFq3SIvM4dq/1RUyWumk8nj/0KFg4TOnNcfzUU4X2gNn3WoRML69gO7waf3xh',
         crossorigin: 'anonymous'
       },
       {
