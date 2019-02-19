@@ -17,8 +17,8 @@ export default helmet({
     directives: {
       frameAncestors: ["'none'"],
       defaultSrc,
-      fontSrc: ["'self'", 'cdnjs.cloudflare.com'],
-      styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com'],
+      fontSrc: ["'self'", 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
+      styleSrc: ["'self'", "'unsafe-inline'", 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
       scriptSrc: ["'self'", "'unsafe-inline'"],
       mediaSrc: ['*'],
       objectSrc: ["'none'"],
