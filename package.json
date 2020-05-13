@@ -23,7 +23,7 @@
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.12.2",
     "qs": "^6.5.2",
     "validator": "^10.4.0",
     "vue-form-generator": "^2.2.2",
