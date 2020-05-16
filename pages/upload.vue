@@ -7,7 +7,7 @@
         b-field
           // accept="image/jpeg, image/png, image/gif, image/x-icon" (buefy bug)
           b-upload(
-            v-model="model.files"
+            v-model="model.file"
             drag-drop
           )
             section.section
@@ -17,15 +17,15 @@
                 div 파일을 선택하거나 드래그
                 div 최대 크기: 10 MiB
                 div 현재 png, jpg, gif, ico 파일만 지원합니다.
-    .column(v-if="selectedFile")
+    .column(v-if="model.file")
       section.file-info
         h3.is-size-3 파일 정보
         img.file-preview(ref="img" v-if="dataUrl" :src="dataUrl")
-        .file-orginal-name 원본 이름: {{ selectedFile.name }}
-        .file-size {{ (selectedFile.size / 1024).toFixed(2) }} KiB
+        .file-orginal-name 원본 이름: {{ model.file.name }}
+        .file-size {{ (model.file.size / 1024).toFixed(2) }} KiB
         .file-width-height {{ width }} × {{ height }}
-  hr(v-if="selectedFile")
-  section.file-description(v-if="selectedFile")
+  hr(v-if="model.file")
+  section.file-description(v-if="model.file")
     h3.is-size-3 파일 설명
     b-field(
       label="파일의 새 이름 (네임스페이스 제외)"
@@ -60,7 +60,7 @@ export default {
   data () {
     return {
       model: {
-        files: [],
+        file: null,
         title: '',
         wikitext: '',
         summary: ''
@@ -70,13 +70,8 @@ export default {
       height: null
     }
   },
-  computed: {
-    selectedFile () {
-      return this.model.files[0]
-    }
-  },
   watch: {
-    selectedFile (file) {
+    'model.file' (file) {
       if (!file) {
         return
       }
@@ -97,11 +92,11 @@ export default {
   },
   methods: {
     async submit () {
-      if (!this.selectedFile || !this.model.title) {
+      if (!this.model.file || !this.model.title) {
         return
       }
       const formData = new FormData()
-      formData.append('file', this.selectedFile)
+      formData.append('file', this.model.file)
       formData.append('title', this.model.title.trim())
       formData.append('wikitext', this.model.wikitext.trim())
       formData.append('summary', this.model.summary.trim())

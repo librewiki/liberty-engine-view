@@ -13,13 +13,13 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
-    "buefy": "^0.6.6",
+    "buefy": "^0.8.18",
     "diff": "^3.5.0",
     "diff2html": "^2.4.0",
     "font-awesome": "^4.7.0",
-    "helmet": "^3.12.1",
+    "helmet": "^3.22.0",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",

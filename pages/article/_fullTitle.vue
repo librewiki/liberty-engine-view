@@ -6,7 +6,7 @@
       ul.categories
         li.category-item(v-for="cat in article.categories")
           nuxt-link(:to="`/article/${encodeURIComponent('분류:' + cat)}`") {{ cat }}
-    img(v-if="mediaFile" :src="`/media/${mediaFile.filename}`")
+    img(v-if="mediaFile" :src="mediaFile.devPath || `/media/${mediaFile.filename}`")
     wiki-html(:html="article.html")
     category-tree(v-if="isCategory" :subcategories="subcategories" :members="members")
 </template>
@@ -83,6 +83,9 @@ export default {
           res
         })
         mediaFile = resp.data.mediaFile
+        if (process.env.NODE_ENV) {
+          mediaFile.devPath = `http://localhost:${process.env.API_PORT || '3001'}/media-dev/${mediaFile.filename}`
+        }
       }
       const isCategory = article.namespaceId === 14
       let members = null
