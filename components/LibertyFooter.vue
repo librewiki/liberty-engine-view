@@ -5,6 +5,10 @@ footer.liberty-footer
     time(:datetime="$moment(meta.updatedAt).format()")
       | {{ $moment(meta.updatedAt).format('LLLL') }}
     | 에 마지막으로 바뀌었습니다.
+  .license-notice(v-if="meta.updatedAt && settings.data.license !== 'OTHERS'")
+    | 모든 텍스트는&nbsp;
+    a.external(:href="settings.data.license.url" target="_blank") {{settings.data.license.name}}
+    | 에 따라 사용할 수 있습니다.
   ul.footer-links
     li.footer-link
       nuxt-link(:to="`/article/${encodeURIComponent('개인정보 정책')}`") 개인정보 정책

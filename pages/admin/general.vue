@@ -7,6 +7,9 @@
   b-field(label="언어")
     b-select(v-model="model.language")
       option(v-for="lang in original.availableLanguages" :value="lang" :key="lang") {{ lang }}
+  b-field(label="라이선스")
+    b-select(v-model="model.license")
+      option(v-for="license in original.availableLicenses" :value="license" :key="license") {{ license }}
   b-field(label="Favicon")
   b-field(grouped)
     b-input(v-model="faviconSearchText" @keyup.native.enter="searchFavicon")
@@ -77,6 +80,15 @@ export default {
           method: 'put',
           body: {
             language: this.model.language
+          }
+        })
+      }
+      if (this.original.license !== this.model.license) {
+        await request({
+          path: `settings/license`,
+          method: 'put',
+          body: {
+            license: this.model.license
           }
         })
       }
