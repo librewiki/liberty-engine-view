@@ -9,7 +9,9 @@ nav.panel.live-recent
           a(:class="{ 'is-active': mode === 'DISCUSSION' }" @click="mode = 'DISCUSSION'; fetchLiveRecent()" role="button") 최근토의
   .live-recent-content
     nuxt-link.panel-block(v-for="item in items" :to="item.to" :key="item.key")
-      | [{{ item.timeString }}] {{ item.text }}
+      span.live-recent-time [{{ item.timeString }}]&nbsp;
+      span.live-recent-tag(v-if="item.isNew") [New]&nbsp;
+      span.live-recent-title {{item.text}}
   .live-recent-footer.panel-block
     nuxt-link.button.is-primary.is-small(to="/recent-changes" title="최근 바뀜") 더보기
 </template>
@@ -48,9 +50,11 @@ export default {
             } else {
               timeString = this.$moment(article.updatedAt).format('HH[:]mm[:]ss')
             }
+            const isNew = article.createdAt === article.updatedAt
             return {
               key: 'a' + article.id,
               timeString,
+              isNew,
               text: article.fullTitle,
               to: `/article/${encodeURIComponent(article.fullTitle)}`
             }
@@ -119,6 +123,14 @@ export default {
   }
   .live-recent-content {
     background-color: white;
+  }
+  .live-recent-tag {
+    color: #b73333;
+  }
+  .live-recent-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .live-recent-footer {
     justify-content: flex-end;
