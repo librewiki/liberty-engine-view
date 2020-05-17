@@ -51,12 +51,22 @@ export default {
     ...mapState(['meta', 'settings'])
   },
   head () {
+    let faviconHref
+    if (this.settings.data.favicon && this.settings.data.favicon.filename) {
+      if (process.env.NODE_ENV === 'development') {
+        faviconHref = `http://localhost:${process.env.API_PORT || '3001'}/media-dev/${this.settings.data.favicon.filename}`
+      } else {
+        faviconHref = `/media/${this.settings.data.favicon.filename}`
+      }
+    }
+    const link = []
+    if (faviconHref) {
+      link.push({ rel: 'icon', type: 'image/x-icon', href: faviconHref })
+    }
     return {
       title: this.meta.title || '',
       titleTemplate: `%s - ${this.settings.data.wikiName}`,
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: `/media/${this.settings.data.favicon.filename}` }
-      ]
+      link
     }
   }
 }

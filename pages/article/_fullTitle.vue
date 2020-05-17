@@ -83,7 +83,7 @@ export default {
           res
         })
         mediaFile = resp.data.mediaFile
-        if (process.env.NODE_ENV) {
+        if (process.env.NODE_ENV === 'development') {
           mediaFile.devPath = `http://localhost:${process.env.API_PORT || '3001'}/media-dev/${mediaFile.filename}`
         }
       }
